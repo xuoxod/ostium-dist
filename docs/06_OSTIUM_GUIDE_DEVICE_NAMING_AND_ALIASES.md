@@ -1,46 +1,45 @@
 # 🏷️ 06_OSTIUM_GUIDE_DEVICE_NAMING_AND_ALIASES
 
-> **Product:** Ostium Sovereign Sentinel  
-> **Audience:** End Users & Network Administrators  
-> **Topic:** Device Hostname Discovery, Android/iOS Private MACs, and Custom Aliases  
+> **Target Audience:** Systems Operators & Network Administrators  
+> **Topic:** Device Hostname Discovery, Randomized MAC Resolution, and Local Aliases  
 
 ---
 
-## 📱 The "Private Wi-Fi" Challenge
+## 📱 The "Private Wi-Fi" Address Challenge
 
-Smartphones running Android 10+ or iOS 14+ feature **Private MAC Address Randomization** by default. Instead of showing hardware from Apple, Samsung, or Google, standard network tools see an anonymous MAC address:
+Modern mobile operating systems (Android 10+, iOS 14+, Windows 11) enable **MAC Address Randomization** by default. Instead of presenting authentic manufacturer hardware identifiers, network analyzers encounter anonymous, locally administered MAC addresses:
 
 ```text
-9E:8C:C6:F3:B7:80  192.168.1.168  Private Wi-Fi (Randomized MAC)
+9E:8C:C6:XX:XX:XX  192.168.1.168  Locally Administered / Private MAC
 ```
 
-Ostium solves this problem through automated reverse DNS discovery and custom alias management.
+`ostium` bridges this visibility gap through automated DHCP lease harvesting and a persistent local alias registry.
 
 ---
 
-## 🔍 1. Automatic Hostname Resolution
+## 🔍 1. Sub-Millisecond Gateway Lease Harvesting
 
-When a device connects to your home Wi-Fi gateway (such as a Verizon Fios CR1000A, CR1000B, or G3100), it registers its internal friendly hostname with the router's DNS server during DHCP assignment.
+When a client device negotiates a DHCP lease with the gateway, it registers its operating-system friendly hostname.
 
-Ostium performs a high-speed reverse DNS PTR query directly against your router (`192.168.1.1:53`):
-* `192.168.1.168` $\implies$ Discovers hostname **`Xueux`** $\implies$ Labels device as **`Xueux (Android Phone)`**.
-* `192.168.1.185` $\implies$ Discovers hostname **`50Q550G`** $\implies$ Labels device as **`TCL TV (50Q550G)`**.
-* `192.168.1.183` $\implies$ Discovers hostname **`LS210D4D6`** $\implies$ Labels device as **`Buffalo NAS (LS210D4D6)`**.
-* `192.168.1.153` $\implies$ Discovers hostname **`AmazonPlug01R2`** $\implies$ Labels device as **`Amazon (AmazonPlug01R2)`**.
+`ostium` transmits non-intrusive RFC 1035 UDP reverse DNS PTR queries directly to the gateway (`<gateway-ip>:53`):
+* `192.168.1.168` $\implies$ Resolves PTR $\implies$ Labels device as **`Mobile-Handset-Alpha`**.
+* `192.168.1.185` $\implies$ Resolves PTR $\implies$ Labels device as **`Smart-Display-4K`**.
+* `192.168.1.183` $\implies$ Resolves PTR $\implies$ Labels device as **`Backup-Vault-Storage`**.
+* `192.168.1.153` $\implies$ Resolves PTR $\implies$ Labels device as **`Smart-Appliance-Plug`**.
 
 ---
 
-## ✏️ 2. Setting Custom Device Nicknames
+## ✏️ 2. Custom Device Aliases
 
-If you want to label devices with your own friendly names (e.g., *"Rick's Android Phone"* or *"Living Room PS5"*), use the `ostium alias` command:
+Operators can assign custom persistent identifiers to any station by IP address or hardware MAC:
 
 ```bash
-# Assign a nickname by IP address:
-ostium alias 192.168.1.168 "Rick's Android Phone"
+# Assign a persistent friendly alias by IP:
+ostium alias 192.168.1.168 "Primary Mobile Device"
 
-# Assign a nickname by MAC address (works even if IP changes):
-ostium alias 0C:70:43:B3:47:54 "Living Room PlayStation 5"
-ostium alias 68:E1:DC:A7:14:D6 "Buffalo Backup Vault"
+# Assign a persistent alias by MAC address (retains identity across DHCP renewals):
+ostium alias 0C:70:43:XX:XX:XX "Production Media Console"
+ostium alias 68:E1:DC:XX:XX:XX "Secure Network Attached Storage"
 ```
 
 ### Viewing Configured Aliases
@@ -48,12 +47,12 @@ ostium alias 68:E1:DC:A7:14:D6 "Buffalo Backup Vault"
 $ ostium aliases
 
 ================================================================================
-  OSTIUM DEVICE ALIAS REGISTRY [3 CONFIGURATIONS]
+  OSTIUM DEVICE ALIAS REGISTRY [CONFIGURED ENTRIES]
 ================================================================================
-  192.168.1.168            -> Rick's Android Phone
-  0C:70:43:B3:47:54        -> Living Room PlayStation 5
-  68:E1:DC:A7:14:D6        -> Buffalo Backup Vault
+  192.168.1.168            -> Primary Mobile Device
+  0C:70:43:XX:XX:XX        -> Production Media Console
+  68:E1:DC:XX:XX:XX        -> Secure Network Attached Storage
 ================================================================================
 ```
 
-Aliases are saved to `~/.config/ostium/aliases.json` and immediately appear in all `status`, `scan`, and interactive `watch` TUI dashboards.
+Aliases are stored locally in `~/.config/ostium/aliases.json` and immediately render across all CLI commands and the live terminal radar interface.

@@ -1,25 +1,24 @@
 # 🛡️ 07_OSTIUM_GUIDE_SELF_PRESERVATION_SECURITY
 
-> **Product:** Ostium Sovereign Sentinel  
-> **Audience:** Operators & Security Practitioners  
-> **Topic:** Host Self-Awareness & Self-Preservation Invariant  
+> **Target Audience:** Systems Architects & Security Engineers  
+> **Topic:** Host Self-Awareness Architecture and the Self-Preservation Invariant  
 
 ---
 
-## 🏛️ What Is Sentinel Self-Awareness?
+## 🏛️ What Is Host Self-Awareness?
 
-When running an active perimeter defense platform that has the authority to kick stations, disassociate wireless clients, and update router hardware ACL blacklists, **accidentally locking yourself out** is one of the highest operational risks.
+When running an active perimeter security platform equipped with the authority to disassociate stations, drop connections, and modify router hardware access control lists, **accidental self-lockout** represents a significant operational risk.
 
-Ostium introduces a zero-dependency **Host Identity & Self-Preservation Engine**:
-1. It automatically discovers your machine's hostname, all physical/virtual network cards, and every assigned IPv4 and IPv6 address.
-2. It visually highlights your machine with a prominent badge: `★ THIS HOST (<hostname>)`.
-3. It enforces an unbreakable **Self-Preservation Guard**: even if you or an automated script try to eject or blacklist your machine's IP or MAC, the operation is blocked before any command is sent to the router.
+`ostium` enforces an autonomous **Host Identity & Self-Preservation Engine**:
+1. At initialization, it interrogates local kernel interfaces to discover the host machine's identity, all physical and virtual network adapters, and every assigned IPv4 and IPv6 address.
+2. In visual presentations and terminal dashboards, the host machine is highlighted with a distinct badge: `★ THIS HOST (<hostname>)`.
+3. It enforces an unbreakable **Self-Preservation Invariant**: any manual command, automated heuristic, or rogue script attempting to disassociate or blacklist the host's own IP or MAC address is blocked at the application boundary before network frames are dispatched.
 
 ---
 
-## 🔍 Inspecting Your Sentinel Identity
+## 🔍 Inspecting Host Identity
 
-To see your machine's network identity snapshot:
+To view the machine's discovered network identity matrix:
 
 ```bash
 $ ostium whoami
@@ -27,17 +26,16 @@ $ ostium whoami
 ================================================================================
   OSTIUM HOST IDENTITY & SELF-AWARENESS MATRIX
 ================================================================================
-  Hostname:          xuoux
-  Primary Interface: wlp0s20f3
-  Primary MAC:       58:CE:2A:3E:42:7F
+  Hostname:          sentinel-node-01
+  Primary Interface: wlan0
+  Primary MAC:       58:CE:2A:XX:XX:XX
   Primary LAN IP:    192.168.1.57
-  Self Badge:        ★ THIS HOST (xuoux)
+  Self Badge:        ★ THIS HOST (sentinel-node-01)
 --------------------------------------------------------------------------------
-  ACTIVE INTERFACES (5 TOTAL):
+  ACTIVE INTERFACES:
     • lo           MAC: 00:00:00:00:00:00  Up: false Loopback: true
-    • virbr0       MAC: 52:54:00:A4:41:F5  Up: true  Loopback: false
-    • wlp0s20f3    MAC: 58:CE:2A:3E:42:7F  Up: true  Loopback: false
-    ...
+    • eth0         MAC: 52:54:00:XX:XX:XX  Up: true  Loopback: false
+    • wlan0        MAC: 58:CE:2A:XX:XX:XX  Up: true  Loopback: false
 ================================================================================
   Self-Preservation Invariant: ACTIVE (All host MACs and IPs protected from ACL drops)
 ================================================================================
@@ -47,18 +45,17 @@ $ ostium whoami
 
 ## 🚫 Self-Preservation in Action
 
-### 1. In the CLI
-If an operator accidentally runs an eject command targeting the host's own MAC or IP:
+### 1. Command-Line Interface Guard
+If an operator inadvertently executes a disassociation command against the host:
 ```bash
-$ ostium eject 58:CE:2A:3E:42:7F
+$ ostium eject 58:CE:2A:XX:XX:XX
 
-🛡️ SELF-PRESERVATION GUARD: Self-targeting prevented (self-preservation invariant): 
-MAC 58:CE:2A:3E:42:7F belongs to this host (xuoux); self-preservation invariant enforced
+🛡️ SELF-PRESERVATION GUARD: Operation prevented by invariant.
+MAC 58:CE:2A:XX:XX:XX belongs to this host (sentinel-node-01); self-targeting prohibited.
 ```
-The command terminates instantly with zero impact on network connectivity.
+The command terminates immediately without affecting local or network connectivity.
 
-### 2. In the Interactive TUI Dashboard (`ostium watch`)
-* Use `[↑]` (Up) and `[↓]` (Down) arrow keys to navigate the active device list.
-* `★ THIS HOST` is pinned to row 1 and styled in bright **Cyan**.
-* If you press **`[K]`** (Kick) or **`[B]`** (Blacklist) while `★ THIS HOST` is selected, the bottom status line displays:
-  > `🛡️ Invariant: MAC 58:CE:2A:3E:42:7F belongs to this host (xuoux); self-preservation invariant enforced`
+### 2. Live Terminal Radar Guard (`ostium watch`)
+* The host machine is pinned to row 1 of the station list and highlighted in **Cyan**.
+* If an operator presses **`[K]`** (Kick) or **`[B]`** (Blacklist) while the cursor is positioned on `★ THIS HOST`, the interface triggers an alert:
+  > `🛡️ Invariant: MAC belongs to this host; self-targeting prohibited.`
