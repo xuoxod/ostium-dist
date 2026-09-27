@@ -1,0 +1,2 @@
+61c1b9bccd1e7d1a829c84e81d1d1df59a8097db46e92ef4c42fb06ed923f18d  bin/ostium
+61c1b9bccd1e7d1a829c84e81d1d1df59a8097db46e92ef4c42fb06ed923f18d  bin/ostium-v0.1.0-linux-x86_64
