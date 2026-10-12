@@ -4,14 +4,14 @@
   <img src="https://img.shields.io/badge/Platform-Linux%20%7C%20Windows%20x86__64-blue.svg" alt="Platform" />
   <img src="https://img.shields.io/badge/Binary-Musl%20Static%20%2F%20Win32%20PE-brightgreen.svg" alt="Binary" />
   <a href="https://github.com/xuoxod/ostium-dist/releases/tag/v0.1.1"><img src="https://img.shields.io/badge/Release-v0.1.1-green.svg" alt="Release" /></a>
-  <a href="docs/09_OSTIUM_CRUCIBLE_EMPIRICAL_AUDIT.md"><img src="https://img.shields.io/badge/Crucible%20TDD-55%2F55%20Passed%20(100%25)-success.svg" alt="Crucible Tests" /></a>
+  <a href="docs/09_OSTIUM_CRUCIBLE_EMPIRICAL_AUDIT.md"><img src="https://img.shields.io/badge/Crucible%20TDD-57%2F57%20Passed%20(100%25)-success.svg" alt="Crucible Tests" /></a>
   <img src="https://img.shields.io/badge/Provenance-Ed25519%20Signed%20(SOVEREIGN--SIGN--01)-blueviolet.svg" alt="Signed" />
   <img src="https://img.shields.io/badge/Privacy-100%25%20Zero--Cloud%20Local%20Custody-success.svg" alt="Privacy" />
 </p>
 
 > **Distribution Hub:** Official Pre-Compiled Releases & Cryptographic Verification  
 > **Platform Target:** Linux (x86_64, aarch64) • Windows (x86_64) • Completely Self-Contained Static Binaries  
-> **Status:** PRODUCTION READY • 100% FORMALLY VERIFIED • 55 CRUCIBLE ADVERSARIAL TESTS PASSED  
+> **Status:** PRODUCTION READY • 100% FORMALLY VERIFIED • 57 CRUCIBLE ADVERSARIAL TESTS PASSED  
 
 ---
 
@@ -21,7 +21,32 @@
 
 Built with strict zero-allocation invariants, non-blocking asynchronous event processing, and native operating-system kernel interfaces, `ostium` operates without external runtime dependencies, package managers, or cloud telemetry.
 
+```mermaid
+flowchart TD
+    subgraph Tier1["Tier 1: Universal Zero-Privilege Discovery (100% Networks)"]
+        T1A["Dual-Stack Discovery (IPv4 Sweeper + IPv6 Multicast ff02::1)"]
+        T1B["OS Neighbor Table (Linux /proc/net/arp • Win32 GetIpNetTable2)"]
+        T1C["RFC 1035 UDP 53 Reverse DNS Lease Harvesting"]
+        T1D["IEEE OUI Fingerprinting • Bitwise Radix IP Trie (&lt;85ns)"]
+        T1E["Host Self-Preservation Guard • Local Aliases (~/.config/ostium/)"]
+    end
+
+    subgraph Tier2["Tier 2: Wireless Intrusion Detection (WIDS / RF Monitor)"]
+        T2A["802.11 Deauth Burst Velocity Math (Sliding Window Trap)"]
+        T2B["Protected Management Frames (802.11w PMF) Cryptographic Audit"]
+        T2C["Rogue AP & BSSID Spoofing Detection"]
+    end
+
+    subgraph Tier3["Tier 3: Autonomous Hardware Gateway Defense"]
+        T3A["Perimeter Watchdog Daemon ('ostium sentinel --interval 10')"]
+        T3B["Hardware ACL Station Disassociation & Silicon Blacklisting"]
+        T3C["Immutable Forensic Ledger in Local SQLite WAL"]
+    end
+
+    Tier1 --> Tier2 --> Tier3
 ```
+
+```text
 ┌────────────────────────────────────────────────────────────────────────┐
 │                   OSTIUM THREE-TIER COMPATIBILITY MODEL                 │
 ├────────────────────────────────────────────────────────────────────────┤
@@ -54,6 +79,7 @@ Built with strict zero-allocation invariants, non-blocking asynchronous event pr
 │                AsusWRT, pfSense, UniFi, and RouterOS contributions     │
 └────────────────────────────────────────────────────────────────────────┘
 ```
+
 
 ---
 
@@ -162,9 +188,11 @@ ostium db-stats
 * [06. Device Naming & Aliases](docs/06_OSTIUM_GUIDE_DEVICE_NAMING_AND_ALIASES.md) — Resolving randomized MAC addresses and configuring local persistent aliases.
 * [07. Self-Preservation Security Model](docs/07_OSTIUM_GUIDE_SELF_PRESERVATION_SECURITY.md) — Host identity discovery and invariant-enforced self-targeting protection.
 * [08. Router Diversity & Contribution Guide](docs/08_OSTIUM_GUIDE_ROUTER_DIVERSITY_AND_CONTRIBUTION.md) — Edge cases in heterogeneous networks and implementing custom gateway drivers.
-* [09. Crucible Empirical Security Audit](docs/09_OSTIUM_CRUCIBLE_EMPIRICAL_AUDIT.md) — Empirical verification proof across all 47 adversarial tests.
+* [09. Crucible Empirical Security Audit](docs/09_OSTIUM_CRUCIBLE_EMPIRICAL_AUDIT.md) — Empirical verification proof across all 57 adversarial tests.
 * [10. Scope, Limits & Target Beneficiaries](docs/10_OSTIUM_SCOPE_LIMITS_AND_BENEFICIARIES.md) — Operational boundaries, target beneficiaries (shared Wi-Fi, smart homes), and multi-OS roadmap.
 * [Changelog](CHANGELOG.md) — Detailed release history and feature records.
+
+
 
 ---
 

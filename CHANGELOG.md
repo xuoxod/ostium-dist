@@ -45,8 +45,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Linux `aarch64`: `ostium-v0.1.1-linux-aarch64` (6.2 MB, Musl Static Stripped).
   - Windows `x86_64`: `ostium-v0.1.1-windows-x86_64.exe` (13 MB, Standalone PE32+ Console Executable).
   - Cryptographic verification via SHA-256 manifests and detached GPG Ed25519 signatures (`SOVEREIGN-SIGN-01`).
-- **Crucible Empirical Security Verification (55/55 Passed)**:
-  - Total test battery expanded to 55 automated tests passing 100% green across Linux and Windows targets.
+- **Crucible Empirical Security Verification (57/57 Passed)**:
+  - Total test battery expanded to 57 automated tests passing 100% green across Linux and Windows targets.
+
 
 ### 🔧 Changed
 - **Mathematical Self-Preservation Invariant**: Hardened `HostIdentity::assert_not_self()` preventing self-targeting, accidental lockouts, or automated blacklisting of the operator workstation.

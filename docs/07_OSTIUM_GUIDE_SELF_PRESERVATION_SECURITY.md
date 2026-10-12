@@ -2,10 +2,11 @@
 
 > **Target Audience:** Systems Architects & Security Engineers  
 > **Topic:** Host Self-Awareness Architecture and the Self-Preservation Invariant  
+> **Standard:** Universal Sovereign Invariant Pillar III (Invariant Enforcement)  
 
 ---
 
-## 🏛️ What Is Host Self-Awareness?
+## 🏛️ 1. What Is Host Self-Awareness?
 
 When running an active perimeter security platform equipped with the authority to disassociate stations, drop connections, and modify router hardware access control lists, **accidental self-lockout** represents a significant operational risk.
 
@@ -16,26 +17,50 @@ When running an active perimeter security platform equipped with the authority t
 
 ---
 
-## 🔍 Inspecting Host Identity
+## 🛡️ 2. The Invariant Decision Logic
+
+The flowchart below illustrates how the invariant guard intercepts any self-destructive operation before wire transmission:
+
+```mermaid
+flowchart TD
+    A["Operator / Sentinel initiates Eject or Blacklist Command"] --> B["Ingest Target Identifier (IP or MAC)"]
+    B --> C["Query HostIdentity Kernel State"]
+    C --> D{"Target In Host Identity Set?"}
+
+    D -- "YES (Matches Host MAC or IP)" --> E["TRIGGER INVARIANT BLOCK"]
+    E --> F["Return Err(OstiumError::SelfTargetingPrevented)"]
+    F --> G["Flash Invariant Warning to Operator Console"]
+    G --> H["Zero Wire Frames Dispatched (Host Connection Preserved)"]
+
+    D -- "NO (External Target)" --> I["Validate Target Address Syntax & Radix Filter"]
+    I --> J["Dispatch Gateway Hardware ACL Disassociation"]
+```
+
+---
+
+## 🔍 3. Inspecting Host Identity: What to Expect
 
 To view the machine's discovered network identity matrix:
 
 ```bash
-$ ostium whoami
+ostium whoami
+```
 
+**Expected Real-World Output:**
+```text
 ================================================================================
   OSTIUM HOST IDENTITY & SELF-AWARENESS MATRIX
 ================================================================================
   Hostname:          sentinel-node-01
   Primary Interface: wlan0
-  Primary MAC:       00:11:22:33:44:55
+  Primary MAC:       00:11:22:33:44:AA
   Primary LAN IP:    10.0.0.57
   Self Badge:        ★ THIS HOST (sentinel-node-01)
 --------------------------------------------------------------------------------
   ACTIVE INTERFACES:
     • lo           MAC: 00:00:00:00:00:00  Up: false Loopback: true
     • eth0         MAC: 52:54:00:12:34:56  Up: true  Loopback: false
-    • wlan0        MAC: 00:11:22:33:44:55  Up: true  Loopback: false
+    • wlan0        MAC: 00:11:22:33:44:AA  Up: true  Loopback: false
 ================================================================================
   Self-Preservation Invariant: ACTIVE (All host MACs and IPs protected from ACL drops)
 ================================================================================
@@ -43,15 +68,18 @@ $ ostium whoami
 
 ---
 
-## 🚫 Self-Preservation in Action
+## 🚫 4. Self-Preservation in Action
 
 ### 1. Command-Line Interface Guard
 If an operator inadvertently executes a disassociation command against the host:
 ```bash
-$ ostium eject 00:11:22:33:44:55
+ostium eject 00:11:22:33:44:AA
+```
 
+**Expected Real-World Output:**
+```text
 🛡️ SELF-PRESERVATION GUARD: Operation prevented by invariant.
-MAC 00:11:22:33:44:55 belongs to this host (sentinel-node-01); self-targeting prohibited.
+MAC 00:11:22:33:44:AA belongs to this host (sentinel-node-01); self-targeting prohibited.
 ```
 The command terminates immediately without affecting local or network connectivity.
 
@@ -59,3 +87,4 @@ The command terminates immediately without affecting local or network connectivi
 * The host machine is pinned to row 1 of the station list and highlighted in **Cyan**.
 * If an operator presses **`[K]`** (Kick) or **`[B]`** (Blacklist) while the cursor is positioned on `★ THIS HOST`, the interface triggers an alert:
   > `🛡️ Invariant: MAC belongs to this host; self-targeting prohibited.`
+

@@ -75,6 +75,30 @@ When deploying across unknown networks, operators should be aware of the followi
 
 The gateway control interface is decoupled via an asynchronous driver trait. Adding support for a new router platform requires implementing three methods:
 
+```mermaid
+flowchart TD
+    subgraph CoreEngine["Ostium Core Engine"]
+        A["Sentinel Watchdog / CLI Commands"] --> B["Hardware Gateway Dispatcher"]
+        B --> C["Trait: CarrierRpcClient (Async Send + Sync)"]
+    end
+
+    subgraph Drivers["Pluggable Gateway Drivers"]
+        C --> D["Built-in: Carrier Wi-Fi 6/6E QSDK Driver"]
+        C --> E["Roadmap: OpenWrt (ubus JSON-RPC)"]
+        C --> F["Roadmap: pfSense / OPNsense (REST pfctl)"]
+        C --> G["Roadmap: Ubiquiti UniFi (Controller API)"]
+        C --> H["Roadmap: AsusWRT (HTTP Admin Hooks)"]
+    end
+
+    subgraph Hardware["Physical Edge Gateways & Routers"]
+        D --> I["Qualcomm IPQ / Carrier Wi-Fi 6E Gateway"]
+        E --> J["OpenWrt Access Points"]
+        F --> K["pfSense / OPNsense BSD Firewalls"]
+        G --> L["UniFi Dream Machine & APs"]
+        H --> M["Asus ROG / AiMesh Routers"]
+    end
+```
+
 ```rust
 use async_trait::async_trait;
 
@@ -96,3 +120,4 @@ pub trait CarrierRpcClient: Send + Sync {
 * **pfSense / OPNsense**: Driver utilizing REST API and `pfctl` table management.
 * **Ubiquiti UniFi**: Driver integrating with the UniFi Controller API.
 * **AsusWRT**: Driver interfacing with HTTP administration hooks.
+
