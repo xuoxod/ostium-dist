@@ -1,5 +1,12 @@
 # 🛡️ OSTIUM — Sovereign Home Gateway Sentinel & WIDS Defense Platform
 
+<p align="center">
+  <img src="https://img.shields.io/badge/Platform-Linux%20x86__64%20%7C%20aarch64-blue.svg" alt="Platform" />
+  <img src="https://img.shields.io/badge/Binary-Musl%20Static%20PIE-brightgreen.svg" alt="Binary" />
+  <a href="https://github.com/xuoxod/ostium-dist/releases/tag/v0.1.0"><img src="https://img.shields.io/badge/Release-v0.1.0-green.svg" alt="Release" /></a>
+  <img src="https://img.shields.io/badge/License-Proprietary%20%2F%20Sovereign-blueviolet.svg" alt="License" />
+</p>
+
 > **Distribution Hub:** Official Pre-Compiled Releases & Security Verification  
 > **Platform Target:** Linux (x86_64, aarch64) • Completely Self-Contained Static Binaries  
 > **Status:** PRODUCTION READY • 100% FORMALLY VERIFIED • ADVERSARIAL RED-TEAM TESTED  
