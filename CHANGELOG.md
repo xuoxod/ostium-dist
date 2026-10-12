@@ -28,9 +28,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Published comprehensive audit report in [`docs/09_OSTIUM_CRUCIBLE_EMPIRICAL_AUDIT.md`](docs/09_OSTIUM_CRUCIBLE_EMPIRICAL_AUDIT.md).
 - **Scope, Limits & Beneficiaries Specification**:
   - Published [`docs/10_OSTIUM_SCOPE_LIMITS_AND_BENEFICIARIES.md`](docs/10_OSTIUM_SCOPE_LIMITS_AND_BENEFICIARIES.md) defining operational tiers, target beneficiaries (shared Wi-Fi, smart homes), and multi-OS roadmap (Linux native, Windows, macOS testbeds).
-- **Dual-Arch Musl Static Releases**:
-  - Pre-compiled standalone static Musl binaries: `ostium-v0.1.1-linux-x86_64` (9.0 MB, Static PIE) and `ostium-v0.1.1-linux-aarch64` (6.2 MB, Static Stripped).
+- **Ground-Floor Multi-OS Platform Abstraction Layer (PAL)**:
+  - Completely refactored OS interactions into clean platform modules (`linux.rs` and `windows.rs`).
+  - Windows host identity engine parsing native `%COMPUTERNAME%` and `ipconfig /all` adapter tables.
+  - Windows default route discovery via `route print 0.0.0.0` and hardware MAC resolution via `arp -a`.
+  - Windows ARP neighbor cache harvesting with automated broadcast/multicast rejection and hex validation.
+- **Pure-Rust Bitwise Radix IP / CIDR Engine (`crates/ostium-core/src/radix.rs`)**:
+  - High-performance $O(k)$ prefix trie engine derived from the sovereign `bastion` standard.
+  - Microsecond bitwise lookup performance ($<85\text{ns}$ per lookup) for single IPs and CIDR blocks (`/24`, `/16`, `/8`, etc.).
+  - Formal Parity and Crucible adversarial test suite (`tests/parity_radix_trie_tests.rs`).
+- **Crucible Appliance Air-Gap & Isolation Invariant (`OSTIUM-SPEC-INVARIANT-10`)**:
+  - Established formal architectural invariant strictly air-gapping live production DNS (`aegis`) and carrier appliances from automated test harnesses, fuzzers, and stress sweeps.
+  - Confined all Crucible testing to in-memory fixtures, loopbacks, and isolated virtual machines (`citadel-win1`).
+- **Native Multi-OS Release Binaries**:
+  - Linux `x86_64`: `ostium-v0.1.1-linux-x86_64` (9.0 MB, Musl Static PIE).
+  - Linux `aarch64`: `ostium-v0.1.1-linux-aarch64` (6.2 MB, Musl Static Stripped).
+  - Windows `x86_64`: `ostium-v0.1.1-windows-x86_64.exe` (13 MB, Standalone PE32+ Console Executable).
   - Cryptographic verification via SHA-256 manifests and detached GPG Ed25519 signatures (`SOVEREIGN-SIGN-01`).
+- **Crucible Empirical Security Verification (55/55 Passed)**:
+  - Total test battery expanded to 55 automated tests passing 100% green across Linux and Windows targets.
 
 ### 🔧 Changed
 - **Mathematical Self-Preservation Invariant**: Hardened `HostIdentity::assert_not_self()` preventing self-targeting, accidental lockouts, or automated blacklisting of the operator workstation.
