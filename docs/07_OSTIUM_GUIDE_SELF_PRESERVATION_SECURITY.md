@@ -28,14 +28,14 @@ $ ostium whoami
 ================================================================================
   Hostname:          sentinel-node-01
   Primary Interface: wlan0
-  Primary MAC:       58:CE:2A:XX:XX:XX
-  Primary LAN IP:    192.168.1.57
+  Primary MAC:       00:11:22:33:44:55
+  Primary LAN IP:    10.0.0.57
   Self Badge:        ★ THIS HOST (sentinel-node-01)
 --------------------------------------------------------------------------------
   ACTIVE INTERFACES:
     • lo           MAC: 00:00:00:00:00:00  Up: false Loopback: true
-    • eth0         MAC: 52:54:00:XX:XX:XX  Up: true  Loopback: false
-    • wlan0        MAC: 58:CE:2A:XX:XX:XX  Up: true  Loopback: false
+    • eth0         MAC: 52:54:00:12:34:56  Up: true  Loopback: false
+    • wlan0        MAC: 00:11:22:33:44:55  Up: true  Loopback: false
 ================================================================================
   Self-Preservation Invariant: ACTIVE (All host MACs and IPs protected from ACL drops)
 ================================================================================
@@ -48,10 +48,10 @@ $ ostium whoami
 ### 1. Command-Line Interface Guard
 If an operator inadvertently executes a disassociation command against the host:
 ```bash
-$ ostium eject 58:CE:2A:XX:XX:XX
+$ ostium eject 00:11:22:33:44:55
 
 🛡️ SELF-PRESERVATION GUARD: Operation prevented by invariant.
-MAC 58:CE:2A:XX:XX:XX belongs to this host (sentinel-node-01); self-targeting prohibited.
+MAC 00:11:22:33:44:55 belongs to this host (sentinel-node-01); self-targeting prohibited.
 ```
 The command terminates immediately without affecting local or network connectivity.
 

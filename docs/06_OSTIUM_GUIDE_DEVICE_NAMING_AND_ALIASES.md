@@ -10,7 +10,7 @@
 Modern mobile operating systems (Android 10+, iOS 14+, Windows 11) enable **MAC Address Randomization** by default. Instead of presenting authentic manufacturer hardware identifiers, network analyzers encounter anonymous, locally administered MAC addresses:
 
 ```text
-9E:8C:C6:XX:XX:XX  192.168.1.168  Locally Administered / Private MAC
+00:11:22:33:44:20  10.0.0.168  Locally Administered / Private MAC
 ```
 
 `ostium` bridges this visibility gap through automated DHCP lease harvesting and a persistent local alias registry.
@@ -22,10 +22,10 @@ Modern mobile operating systems (Android 10+, iOS 14+, Windows 11) enable **MAC 
 When a client device negotiates a DHCP lease with the gateway, it registers its operating-system friendly hostname.
 
 `ostium` transmits non-intrusive RFC 1035 UDP reverse DNS PTR queries directly to the gateway (`<gateway-ip>:53`):
-* `192.168.1.168` $\implies$ Resolves PTR $\implies$ Labels device as **`Mobile-Handset-Alpha`**.
-* `192.168.1.185` $\implies$ Resolves PTR $\implies$ Labels device as **`Smart-Display-4K`**.
-* `192.168.1.183` $\implies$ Resolves PTR $\implies$ Labels device as **`Backup-Vault-Storage`**.
-* `192.168.1.153` $\implies$ Resolves PTR $\implies$ Labels device as **`Smart-Appliance-Plug`**.
+* `10.0.0.168` $\implies$ Resolves PTR $\implies$ Labels device as **`Mobile-Handset-Alpha`**.
+* `10.0.0.185` $\implies$ Resolves PTR $\implies$ Labels device as **`Smart-Display-4K`**.
+* `10.0.0.183` $\implies$ Resolves PTR $\implies$ Labels device as **`Backup-Vault-Storage`**.
+* `10.0.0.153` $\implies$ Resolves PTR $\implies$ Labels device as **`Smart-Appliance-Plug`**.
 
 ---
 
@@ -35,11 +35,11 @@ Operators can assign custom persistent identifiers to any station by IP address 
 
 ```bash
 # Assign a persistent friendly alias by IP:
-ostium alias 192.168.1.168 "Primary Mobile Device"
+ostium alias 10.0.0.168 "Primary Mobile Device"
 
 # Assign a persistent alias by MAC address (retains identity across DHCP renewals):
-ostium alias 0C:70:43:XX:XX:XX "Production Media Console"
-ostium alias 68:E1:DC:XX:XX:XX "Secure Network Attached Storage"
+ostium alias 00:11:22:33:44:30 "Production Media Console"
+ostium alias 00:11:22:33:44:40 "Secure Network Attached Storage"
 ```
 
 ### Viewing Configured Aliases
@@ -49,9 +49,9 @@ $ ostium aliases
 ================================================================================
   OSTIUM DEVICE ALIAS REGISTRY [CONFIGURED ENTRIES]
 ================================================================================
-  192.168.1.168            -> Primary Mobile Device
-  0C:70:43:XX:XX:XX        -> Production Media Console
-  68:E1:DC:XX:XX:XX        -> Secure Network Attached Storage
+  10.0.0.168               -> Primary Mobile Device
+  00:11:22:33:44:30        -> Production Media Console
+  00:11:22:33:44:40        -> Secure Network Attached Storage
 ================================================================================
 ```
 

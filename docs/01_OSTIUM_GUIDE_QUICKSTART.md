@@ -37,8 +37,8 @@ Example Output:
 ================================================================================
   OSTIUM GATEWAY HARDWARE FINGERPRINT
 ================================================================================
-  Gateway IP:        192.168.1.1
-  Gateway MAC:       78:67:0E:XX:XX:XX
+  Gateway IP:        10.0.0.1
+  Gateway MAC:       00:11:22:33:44:01
   ODM Manufacturer:  Wistron NeWeb Corp (WNC)
   Carrier Family:    Carrier Wi-Fi 6E Gateway
   Model Profile:     CR1000B (10GbE Wi-Fi 6E)

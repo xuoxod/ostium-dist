@@ -60,7 +60,7 @@ When deploying across unknown networks, operators should be aware of the followi
   2. If the gateway does not maintain local PTR mappings, the system falls back to IEEE OUI hardware manufacturer resolution.
   3. Operators can permanently map device names using the local alias registry:
      ```bash
-     ostium alias 192.168.1.168 "Primary Mobile Device"
+     ostium alias 10.0.0.168 "Primary Mobile Device"
      ```
      Aliases persist across reboots in `~/.config/ostium/aliases.json` and immediately reflect across all interfaces.
 

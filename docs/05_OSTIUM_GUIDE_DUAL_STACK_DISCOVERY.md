@@ -22,19 +22,19 @@ Standard network discovery tools (such as simple passive ARP lookups) frequently
 ```text
 $ ostium scan
 
-Executing Dual-Stack Active Sweep across 192.168.1.0/24 & IPv6 Multicast (wlan0)...
+Executing Dual-Stack Active Sweep across 10.0.0.0/24 & IPv6 Multicast (wlan0)...
 ================================================================================
   OSTIUM DUAL-STACK NETWORK NODE DISCOVERY [ACTIVE NODES]
 ================================================================================
   MAC ADDRESS        IP ADDRESS            VENDOR / HOSTNAME            STATUS
 --------------------------------------------------------------------------------
-  58:CE:2A:XX:XX:XX  192.168.1.57          ★ THIS HOST (sentinel-node)  TRUSTED
-  78:67:0E:XX:XX:XX  192.168.1.1           Carrier Gateway Wi-Fi 6E     TRUSTED
-  90:39:5F:XX:XX:XX  192.168.1.153         IoT Smart Plug               TRUSTED
-  9E:8C:C6:XX:XX:XX  192.168.1.168         Mobile-Station (Handset)     TRUSTED
-  0C:70:43:XX:XX:XX  192.168.1.182         Media Console                TRUSTED
-  68:E1:DC:XX:XX:XX  192.168.1.183         Network Attached Storage     TRUSTED
-  84:C8:A0:XX:XX:XX  192.168.1.185         Connected Smart Display      TRUSTED
+  00:11:22:33:44:01  10.0.0.57             ★ THIS HOST (sentinel-node)  TRUSTED
+  00:11:22:33:44:00  10.0.0.1              Carrier Gateway Wi-Fi 6E     TRUSTED
+  00:11:22:33:44:10  10.0.0.153            IoT Smart Plug               TRUSTED
+  00:11:22:33:44:20  10.0.0.168            Mobile-Station (Handset)     TRUSTED
+  00:11:22:33:44:30  10.0.0.182            Media Console                TRUSTED
+  00:11:22:33:44:40  10.0.0.183            Network Attached Storage     TRUSTED
+  00:11:22:33:44:50  10.0.0.185            Connected Smart Display      TRUSTED
 ================================================================================
 ```
 

@@ -3,19 +3,21 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Platform-Linux%20x86__64%20%7C%20aarch64-blue.svg" alt="Platform" />
   <img src="https://img.shields.io/badge/Binary-Musl%20Static%20PIE-brightgreen.svg" alt="Binary" />
-  <a href="https://github.com/xuoxod/ostium-dist/releases/tag/v0.1.0"><img src="https://img.shields.io/badge/Release-v0.1.0-green.svg" alt="Release" /></a>
-  <img src="https://img.shields.io/badge/License-Proprietary%20%2F%20Sovereign-blueviolet.svg" alt="License" />
+  <a href="https://github.com/xuoxod/ostium-dist/releases/tag/v0.1.1"><img src="https://img.shields.io/badge/Release-v0.1.1-green.svg" alt="Release" /></a>
+  <a href="docs/09_OSTIUM_CRUCIBLE_EMPIRICAL_AUDIT.md"><img src="https://img.shields.io/badge/Crucible%20TDD-47%2F47%20Passed%20(100%25)-success.svg" alt="Crucible Tests" /></a>
+  <img src="https://img.shields.io/badge/Provenance-Ed25519%20Signed%20(SOVEREIGN--SIGN--01)-blueviolet.svg" alt="Signed" />
+  <img src="https://img.shields.io/badge/Privacy-100%25%20Zero--Cloud%20Local%20Custody-success.svg" alt="Privacy" />
 </p>
 
-> **Distribution Hub:** Official Pre-Compiled Releases & Security Verification  
+> **Distribution Hub:** Official Pre-Compiled Releases & Cryptographic Verification  
 > **Platform Target:** Linux (x86_64, aarch64) • Completely Self-Contained Static Binaries  
-> **Status:** PRODUCTION READY • 100% FORMALLY VERIFIED • ADVERSARIAL RED-TEAM TESTED  
+> **Status:** PRODUCTION READY • 100% FORMALLY VERIFIED • 47 CRUCIBLE ADVERSARIAL TESTS PASSED  
 
 ---
 
 ## 🏛️ 1. Architectural Overview
 
-`ostium` is an autonomous local-first network security sentinel and Wireless Intrusion Detection System (WIDS). It provides mathematical deauthentication flood defense, sub-millisecond network station discovery, real-time RF threat visualization, and automated hardware-level access control list (ACL) management for home and edge gateways.
+`ostium` is an autonomous local-first network security sentinel and Wireless Intrusion Detection System (WIDS). It provides mathematical deauthentication flood defense, sub-millisecond network station discovery, real-time RF threat visualization, automated hardware-level access control list (ACL) management, and an atomic SQLite WAL persistence engine for home and edge gateways.
 
 Built with strict zero-allocation invariants, non-blocking asynchronous event processing, and native operating-system kernel interfaces, `ostium` operates without external runtime dependencies, package managers, or cloud telemetry.
 
@@ -29,6 +31,7 @@ Built with strict zero-allocation invariants, non-blocking asynchronous event pr
 │  • Dual-stack IPv4 sweep & IPv6 all-nodes multicast discovery          │
 │  • IEEE OUI hardware manufacturer fingerprinting                       │
 │  • Host identity self-preservation invariant & persistent aliases      │
+│  • Atomic SQLite WAL persistence engine (`~/.config/ostium/ostium.db`) │
 │  ► WORKS ON: 100% of Wi-Fi routers, wired switches, mesh APs, hotspots │
 │              (Zero passwords, zero vendor APIs, zero root router access)│
 ├────────────────────────────────────────────────────────────────────────┤
@@ -40,9 +43,11 @@ Built with strict zero-allocation invariants, non-blocking asynchronous event pr
 │  ► AUTO-FALLBACK: Degrades to pure high-speed Scout LAN mode if running│
 │                   over wired Ethernet or standard client Wi-Fi         │
 ├────────────────────────────────────────────────────────────────────────┤
-│ TIER 3: HARDWARE GATEWAY TELEMETRY & LAYER-2 ACL EJECTION              │
+│ TIER 3: HARDWARE GATEWAY TELEMETRY & AUTONOMOUS SENTINEL DEFENSE       │
+│  • Continuous background perimeter watchdog (`ostium sentinel`)        │
 │  • Gateway CPU, Memory, Optical RX Power, WAN Link Telemetry           │
 │  • Real-time Station Disassociation & Hardware MAC Blacklist           │
+│  • Immutable WIDS incident ledger stored locally in SQLite WAL         │
 │  ► SUPPORTED OUT-OF-THE-BOX: Carrier Wi-Fi 6/6E QSDK Gateways          │
 │  ► EXTENSIBLE: Clean asynchronous driver interface for OpenWrt,        │
 │                AsusWRT, pfSense, UniFi, and RouterOS contributions     │
@@ -51,14 +56,21 @@ Built with strict zero-allocation invariants, non-blocking asynchronous event pr
 
 ---
 
-## 🚀 2. Quick Installation
+## 🚀 2. Verified Binary Downloads & Verification
 
-### Single-Line Installation
-Download the pre-compiled, statically linked standalone binary:
+### Official Release Binaries (v0.1.1)
+
+| Target Architecture | Binary | Checksum | Cryptographic Signature | Packaging |
+| :--- | :--- | :--- | :--- | :--- |
+| **Linux x86_64** (Intel / AMD 64-bit) | [`bin/ostium-v0.1.1-linux-x86_64`](bin/ostium-v0.1.1-linux-x86_64) | [`.sha256`](bin/ostium-v0.1.1-linux-x86_64.sha256) | [`.asc`](bin/ostium-v0.1.1-linux-x86_64.sha256.asc) | Static PIE (Musl) |
+| **Linux aarch64** (ARM64 / Raspberry Pi) | [`bin/ostium-v0.1.1-linux-aarch64`](bin/ostium-v0.1.1-linux-aarch64) | [`.sha256`](bin/ostium-v0.1.1-linux-aarch64.sha256) | [`.asc`](bin/ostium-v0.1.1-linux-aarch64.sha256.asc) | Static Stripped (Musl) |
+| **Universal Symlink** (Current Host) | [`bin/ostium`](bin/ostium) | — | — | Static Musl |
+
+### Quick Installation
 
 ```bash
-# 1. Download the latest verified release
-curl -sSL https://github.com/xuoxod/ostium-dist/releases/latest/download/ostium -o ostium
+# 1. Download verified x86_64 binary
+curl -sSL https://raw.githubusercontent.com/xuoxod/ostium-dist/main/bin/ostium-v0.1.1-linux-x86_64 -o ostium
 
 # 2. Grant executable permissions
 chmod +x ostium
@@ -67,12 +79,15 @@ chmod +x ostium
 sudo mv ostium /usr/local/bin/
 ```
 
-### Verification (SHA-256)
-Every release binary is cryptographically signed and hashed. Verify with:
+### Cryptographic Verification (`SOVEREIGN-SIGN-01`)
+Every release binary is accompanied by deterministic SHA-256 digests and OpenPGP detached signatures signed with the sovereign release key (`Rick Walker <rick@rmediatech.com>`, Key ID: `4E428019A109578B`):
 
 ```bash
-sha256sum ostium
-# Must match the official release hash in SHA256SUMS.txt
+# Verify integrity against release manifest
+sha256sum -c SHA256SUMS
+
+# Verify cryptographic release signature
+gpg --verify SHA256SUMS.asc SHA256SUMS
 ```
 
 ---
@@ -86,27 +101,36 @@ ostium identify
 # 2. Display host machine network identity, interfaces, and self-preservation status
 ostium whoami
 
-# 3. Discover all active nodes via dual-stack IPv4 sweep and IPv6 multicast
+# 3. Discover all active nodes and persist them into local SQLite WAL (~/.config/ostium/ostium.db)
 ostium scan
 
-# 4. Inspect operational gateway status, WAN link, and optical link diagnostics
-ostium status
+# 4. Launch the autonomous perimeter defense sentinel daemon (periodic rogue ejection)
+ostium sentinel --interval 10
 
-# 5. Launch the live interactive real-time WIDS Radar & Station Sentinel dashboard
-ostium watch
+# 5. Whitelist all currently discovered legitimate devices into the trusted registry
+ostium trust-all
 
 # 6. Assign friendly persistent nicknames to devices (by MAC or IP)
-ostium alias 192.168.1.168 "Primary Mobile Device"
+ostium alias 10.0.0.168 "Executive Mobile Handset"
 ostium aliases
 
-# 7. Approve all current legitimate devices into the trusted whitelist
-ostium trust-all
+# 7. Launch the live interactive real-time WIDS Radar & Station Sentinel dashboard
+ostium watch
 
 # 8. Run a comprehensive wireless security audit (PMF 802.11w, Rogue MAC scan)
 ostium audit
 
-# 9. Disassociate and blacklist a rogue MAC in the gateway ACL
+# 9. Disassociate and blacklist a rogue MAC in the gateway hardware ACL
 ostium eject 00:C0:CA:99:12:44
+
+# 10. View station appearance history and lease lifecycle
+ostium history
+
+# 11. Inspect recorded WIDS intrusion incident reports
+ostium incidents
+
+# 12. Display SQLite WAL database size, page counts, and storage metrics
+ostium db-stats
 ```
 
 ---
@@ -136,6 +160,9 @@ ostium eject 00:C0:CA:99:12:44
 * [06. Device Naming & Aliases](docs/06_OSTIUM_GUIDE_DEVICE_NAMING_AND_ALIASES.md) — Resolving randomized MAC addresses and configuring local persistent aliases.
 * [07. Self-Preservation Security Model](docs/07_OSTIUM_GUIDE_SELF_PRESERVATION_SECURITY.md) — Host identity discovery and invariant-enforced self-targeting protection.
 * [08. Router Diversity & Contribution Guide](docs/08_OSTIUM_GUIDE_ROUTER_DIVERSITY_AND_CONTRIBUTION.md) — Edge cases in heterogeneous networks and implementing custom gateway drivers.
+* [09. Crucible Empirical Security Audit](docs/09_OSTIUM_CRUCIBLE_EMPIRICAL_AUDIT.md) — Empirical verification proof across all 47 adversarial tests.
+* [10. Scope, Limits & Target Beneficiaries](docs/10_OSTIUM_SCOPE_LIMITS_AND_BENEFICIARIES.md) — Operational boundaries, target beneficiaries (shared Wi-Fi, smart homes), and multi-OS roadmap.
+* [Changelog](CHANGELOG.md) — Detailed release history and feature records.
 
 ---
 
