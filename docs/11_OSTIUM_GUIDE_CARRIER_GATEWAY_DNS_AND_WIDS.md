@@ -6,7 +6,7 @@
 
 > [!NOTE]
 > **Legal Trademark & Open Source Attribution Notice:**  
-> All product names, logos, brands, and registered trademarks mentioned in this document are property of their respective trademark holders. All company, product, and service names used herein are strictly for technical interoperability, hardware architecture classification, and educational compatibility reference under U.S. Trademark Fair Use doctrine. Firmware references relate to standard open-source GPL-licensed Linux kernel stacks published by upstream hardware ODMs and carriers (e.g. [Verizon Open Source](https://github.com/verizon), [Arcadyan GPL](https://openwrt.org), and [OpenWrt](https://openwrt.org)).
+> All product names, logos, brands, and registered trademarks mentioned in this document are property of their respective trademark holders. All company, product, and service names used herein are strictly for technical interoperability, hardware architecture classification, and educational compatibility reference under U.S. Trademark Fair Use doctrine. Firmware references relate to standard open-source GPL-licensed Linux kernel stacks published by upstream hardware ODMs and carriers (e.g. [Verizon Open Source Portal](https://www.verizon.com/support/residential/internet/equipment/open-source-software), [Verizon Open Source GitHub](https://github.com/verizon), [Arcadyan GPL](https://openwrt.org), and [OpenWrt](https://openwrt.org)).
 
 ---
 
