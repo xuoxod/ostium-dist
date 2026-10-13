@@ -3,7 +3,7 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Platform-Linux%20%7C%20Windows%20x86__64-blue.svg" alt="Platform" />
   <img src="https://img.shields.io/badge/Binary-Musl%20Static%20%2F%20Win32%20PE-brightgreen.svg" alt="Binary" />
-  <a href="https://github.com/xuoxod/ostium-dist/releases/tag/v0.1.1"><img src="https://img.shields.io/badge/Release-v0.1.1-green.svg" alt="Release" /></a>
+  <a href="https://github.com/xuoxod/ostium-dist/releases/tag/v0.1.2"><img src="https://img.shields.io/badge/Release-v0.1.2-green.svg" alt="Release" /></a>
   <a href="docs/09_OSTIUM_CRUCIBLE_EMPIRICAL_AUDIT.md"><img src="https://img.shields.io/badge/Crucible%20TDD-57%2F57%20Passed%20(100%25)-success.svg" alt="Crucible Tests" /></a>
   <img src="https://img.shields.io/badge/Provenance-Ed25519%20Signed%20(SOVEREIGN--SIGN--01)-blueviolet.svg" alt="Signed" />
   <img src="https://img.shields.io/badge/Privacy-100%25%20Zero--Cloud%20Local%20Custody-success.svg" alt="Privacy" />
@@ -85,11 +85,11 @@ flowchart TD
 
 ## 🚀 2. Verified Binary Downloads & Verification
 
-### Official Release Binaries (v0.1.1)
+### Official Release Binaries (v0.1.2)
 
 | Target Architecture | Binary | Checksum | Cryptographic Signature | Packaging |
 | :--- | :--- | :--- | :--- | :--- |
-| **Linux x86_64** (Intel / AMD 64-bit) | [`bin/ostium-v0.1.1-linux-x86_64`](bin/ostium-v0.1.1-linux-x86_64) | [`.sha256`](bin/ostium-v0.1.1-linux-x86_64.sha256) | [`.asc`](bin/ostium-v0.1.1-linux-x86_64.sha256.asc) | Static PIE (Musl) |
+| **Linux x86_64** (Intel / AMD 64-bit) | [`bin/ostium-v0.1.2-linux-x86_64`](bin/ostium-v0.1.2-linux-x86_64) | [`.sha256`](bin/ostium-v0.1.2-linux-x86_64.sha256) | [`.asc`](bin/ostium-v0.1.2-linux-x86_64.sha256.asc) | Static PIE (Musl) |
 | **Linux aarch64** (ARM64 / Raspberry Pi) | [`bin/ostium-v0.1.1-linux-aarch64`](bin/ostium-v0.1.1-linux-aarch64) | [`.sha256`](bin/ostium-v0.1.1-linux-aarch64.sha256) | [`.asc`](bin/ostium-v0.1.1-linux-aarch64.sha256.asc) | Static Stripped (Musl) |
 | **Windows x86_64** (Win 10/11 / Server) | [`bin/ostium-v0.1.1-windows-x86_64.exe`](bin/ostium-v0.1.1-windows-x86_64.exe) | [`.sha256`](bin/ostium-v0.1.1-windows-x86_64.exe.sha256) | [`.asc`](bin/ostium-v0.1.1-windows-x86_64.exe.sha256.asc) | Standalone PE32+ Console (.exe) |
 | **Universal Symlink** (Current Host) | [`bin/ostium`](bin/ostium) | — | — | Static Musl |
@@ -98,7 +98,7 @@ flowchart TD
 
 ```bash
 # 1. Download verified x86_64 binary
-curl -sSL https://raw.githubusercontent.com/xuoxod/ostium-dist/main/bin/ostium-v0.1.1-linux-x86_64 -o ostium
+curl -sSL https://raw.githubusercontent.com/xuoxod/ostium-dist/main/bin/ostium-v0.1.2-linux-x86_64 -o ostium
 
 # 2. Grant executable permissions
 chmod +x ostium

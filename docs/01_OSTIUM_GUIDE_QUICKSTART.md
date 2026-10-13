@@ -2,7 +2,7 @@
 
 > **Target Audience:** Network Administrators, Security Researchers, and Systems Engineers  
 > **Platform Support:** Linux (`x86_64`, `aarch64`) • Windows (`x86_64`) • Native Self-Contained Static Binaries  
-> **Release Version:** `v0.1.1` (Formally Verified & Signed)  
+> **Release Version:** `v0.1.2` (Formally Verified & Signed)  
 
 ---
 
@@ -50,13 +50,13 @@ Download the verified, statically linked single Musl binary:
 
 ```bash
 # Download verified x86_64 binary
-curl -sSL https://raw.githubusercontent.com/xuoxod/ostium-dist/main/bin/ostium-v0.1.1-linux-x86_64 -o ostium
+curl -sSL https://raw.githubusercontent.com/xuoxod/ostium-dist/main/bin/ostium-v0.1.2-linux-x86_64 -o ostium
 chmod +x ostium
 sudo mv ostium /usr/local/bin/
 
 # Verify binary integrity
 ostium --version
-# Output: ostium 0.1.1
+# Output: ostium 0.1.2
 ```
 
 ### Windows (`x86_64`)
