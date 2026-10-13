@@ -12,7 +12,7 @@ When launching `ostium watch`, the application initializes an alternate terminal
 
 ```text
 ┌─────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ 🛡️ OSTIUM REAL-TIME STATION SENTINEL & WIDS RADAR v0.1.1                    Host: sentinel-node │
+│ 🛡️ OSTIUM REAL-TIME STATION SENTINEL & WIDS RADAR v0.1.2                    Host: sentinel-node │
 ├─────────────────────────────────────────────────────────────────────────────────────────────────┤
 │ GATEWAY: 10.0.0.1 (WNC CR1000B Wi-Fi 6E) │ IFACE: wlan0 │ MODE: DUAL-STACK WIDS │ PMF: 802.11w  │
 ├─────────────────────────────────────────────────────────────────────────────────────────────────┤

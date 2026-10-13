@@ -64,11 +64,26 @@ Download the standalone native console executable via PowerShell:
 
 ```powershell
 # Download verified Windows x86_64 executable
-Invoke-WebRequest -Uri "https://raw.githubusercontent.com/xuoxod/ostium-dist/main/bin/ostium-v0.1.1-windows-x86_64.exe" -OutFile "ostium.exe"
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/xuoxod/ostium-dist/main/bin/ostium-v0.1.2-windows-x86_64.exe" -OutFile "ostium.exe"
 
 # Verify binary integrity
 .\ostium.exe --version
-# Output: ostium 0.1.1
+# Output: ostium 0.1.2
+```
+
+### macOS (Apple Silicon M1-M4 / Intel)
+Download the native Mach-O executable via Terminal:
+
+```bash
+# Apple Silicon (M1/M2/M3/M4)
+curl -sSL https://raw.githubusercontent.com/xuoxod/ostium-dist/main/bin/ostium-v0.1.2-macos-aarch64 -o ostium
+chmod +x ostium
+sudo mv ostium /usr/local/bin/
+
+# Intel Mac (x86_64)
+curl -sSL https://raw.githubusercontent.com/xuoxod/ostium-dist/main/bin/ostium-v0.1.2-macos-x86_64 -o ostium
+chmod +x ostium
+sudo mv ostium /usr/local/bin/
 ```
 
 ---

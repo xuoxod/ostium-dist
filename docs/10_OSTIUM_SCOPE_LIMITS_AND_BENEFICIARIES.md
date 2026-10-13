@@ -91,7 +91,7 @@ In accordance with sovereign software integrity, `ostium` documents its precise 
 
 ## 🌍 3. Platform Architecture & Multi-OS Agnostic Strategy
 
-While the initial production binaries (`v0.1.0` and `v0.1.1`) target **Linux (x86_64 and aarch64)** as the primary tier, the overarching architecture of Ostium is designed for multi-OS agnosticism.
+While production releases (`v0.1.0`, `v0.1.1`, and `v0.1.2`) provide first-class native pre-compiled binaries across **Linux (x86_64 and aarch64)**, **Windows (x86_64)**, and **macOS (Apple Silicon & Intel)**, the overarching architecture of Ostium is designed for radical multi-OS agnosticism.
 
 ```
 ┌────────────────────────────────────────────────────────────────────────────────────────┐

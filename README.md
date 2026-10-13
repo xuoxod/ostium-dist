@@ -90,20 +90,28 @@ flowchart TD
 | Target Architecture | Binary | Checksum | Cryptographic Signature | Packaging |
 | :--- | :--- | :--- | :--- | :--- |
 | **Linux x86_64** (Intel / AMD 64-bit) | [`bin/ostium-v0.1.2-linux-x86_64`](bin/ostium-v0.1.2-linux-x86_64) | [`.sha256`](bin/ostium-v0.1.2-linux-x86_64.sha256) | [`.asc`](bin/ostium-v0.1.2-linux-x86_64.sha256.asc) | Static PIE (Musl) |
-| **Linux aarch64** (ARM64 / Raspberry Pi) | [`bin/ostium-v0.1.1-linux-aarch64`](bin/ostium-v0.1.1-linux-aarch64) | [`.sha256`](bin/ostium-v0.1.1-linux-aarch64.sha256) | [`.asc`](bin/ostium-v0.1.1-linux-aarch64.sha256.asc) | Static Stripped (Musl) |
-| **Windows x86_64** (Win 10/11 / Server) | [`bin/ostium-v0.1.1-windows-x86_64.exe`](bin/ostium-v0.1.1-windows-x86_64.exe) | [`.sha256`](bin/ostium-v0.1.1-windows-x86_64.exe.sha256) | [`.asc`](bin/ostium-v0.1.1-windows-x86_64.exe.sha256.asc) | Standalone PE32+ Console (.exe) |
+| **Linux aarch64** (ARM64 / Raspberry Pi) | [`bin/ostium-v0.1.2-linux-aarch64`](bin/ostium-v0.1.2-linux-aarch64) | [`.sha256`](bin/ostium-v0.1.2-linux-aarch64.sha256) | [`.asc`](bin/ostium-v0.1.2-linux-aarch64.sha256.asc) | Static Stripped (Musl) |
+| **Windows x86_64** (Win 10/11 / Server) | [`bin/ostium-v0.1.2-windows-x86_64.exe`](bin/ostium-v0.1.2-windows-x86_64.exe) | [`.sha256`](bin/ostium-v0.1.2-windows-x86_64.exe.sha256) | [`.asc`](bin/ostium-v0.1.2-windows-x86_64.exe.sha256.asc) | Standalone PE32+ Console (.exe) |
+| **macOS x86_64** (Intel Mac) | [`bin/ostium-v0.1.2-macos-x86_64`](bin/ostium-v0.1.2-macos-x86_64) | [`.sha256`](bin/ostium-v0.1.2-macos-x86_64.sha256) | [`.asc`](bin/ostium-v0.1.2-macos-x86_64.sha256.asc) | Native Mach-O 64-bit |
+| **macOS aarch64** (Apple Silicon M1-M4) | [`bin/ostium-v0.1.2-macos-aarch64`](bin/ostium-v0.1.2-macos-aarch64) | [`.sha256`](bin/ostium-v0.1.2-macos-aarch64.sha256) | [`.asc`](bin/ostium-v0.1.2-macos-aarch64.sha256.asc) | Native Mach-O 64-bit |
 | **Universal Symlink** (Current Host) | [`bin/ostium`](bin/ostium) | — | — | Static Musl |
 
 ### Quick Installation
 
 ```bash
-# 1. Download verified x86_64 binary
+# Linux x86_64
 curl -sSL https://raw.githubusercontent.com/xuoxod/ostium-dist/main/bin/ostium-v0.1.2-linux-x86_64 -o ostium
-
-# 2. Grant executable permissions
 chmod +x ostium
+sudo mv ostium /usr/local/bin/
 
-# 3. Move to system PATH
+# Linux aarch64 (Raspberry Pi / ARM64)
+curl -sSL https://raw.githubusercontent.com/xuoxod/ostium-dist/main/bin/ostium-v0.1.2-linux-aarch64 -o ostium
+chmod +x ostium
+sudo mv ostium /usr/local/bin/
+
+# macOS (Apple Silicon M1-M4)
+curl -sSL https://raw.githubusercontent.com/xuoxod/ostium-dist/main/bin/ostium-v0.1.2-macos-aarch64 -o ostium
+chmod +x ostium
 sudo mv ostium /usr/local/bin/
 ```
 
