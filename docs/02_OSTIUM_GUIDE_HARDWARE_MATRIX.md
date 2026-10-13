@@ -63,8 +63,8 @@ When integrating Ostium alongside an upstream defensive DNS resolver behind Tier
 | **macOS (Tier 2)** | Apple Silicon (`aarch64` M1-M4), Intel (`x86_64`) | `sysctl`, `getifaddrs`, CoreWLAN | ✅ Full (Sub-ms DNS/ARP) | ⚠️ Passive Airwaves | 🛠️ In Progress |
 | **Windows (Tier 2)**| `x86_64` (Win 10/11 / Server) | Win32 `GetAdaptersAddresses`, `GetIpNetTable2` | ✅ Full (Sub-ms DNS/ARP) | ⚠️ Scout Fallback | 🛠️ In Progress |
 
-> [!TIP] Multi-OS Operational Invariant
-> Regardless of the host OS, Ostium guarantees the **Host Self-Preservation Invariant**: the local machine's physical MAC addresses and assigned IPs are permanently whitelisted and mathematically immune to administrative drops or ACL blacklisting.
+> [!TIP]
+> **Multi-OS Operational Invariant**: Regardless of the host OS, Ostium guarantees the **Host Self-Preservation Invariant**: the local machine's physical MAC addresses and assigned IPs are permanently whitelisted and mathematically immune to administrative drops or ACL blacklisting.
 
 ---
 

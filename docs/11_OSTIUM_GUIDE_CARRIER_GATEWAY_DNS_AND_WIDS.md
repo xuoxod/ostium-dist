@@ -78,8 +78,9 @@ flowchart TD
     WAN_CHECK -->|"ALTERNATIVE (All-Local)"| DISABLE_CARRIER["<b>Scenario C: Disable Carrier DHCP</b><br/>• Disable DHCP on carrier router<br/>• Run autonomous local DHCP on local Ostium node<br/>• Local LAN IP serves all DHCP leases and DNS"]
 ```
 
-> [!NOTE] In-House Technology Context & Public Deployment Note
-> **Ostium itself is an autonomous local-first WIDS and L2/L3 sentinel — it runs 100% locally on your home network and never requires an external IP.**
+> [!NOTE]
+> **In-House Technology Context & Public Deployment Note**  
+> **Ostium itself is an autonomous local-first WIDS and L2/L3 sentinel — it runs 100% locally on your home network and never requires an external IP.**  
 > In our internal fleet, we separately operate **Aegis** as an in-house high-availability dual-node sovereign DNS resolver pair. Because Aegis is currently private under fleet testing, public users deploying Ostium for physical and local network defense can point their carrier gateway WAN DNS to any external defensive resolver or self-hosted VPS DNS sinkhole of their choice using this exact topology.
 
 ---
