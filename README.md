@@ -186,7 +186,7 @@ ostium db-stats
 > **Architectural Transparency:** No single security tool can interface with every proprietary router configuration interface in the wild out-of-the-box. `ostium` solves this through decoupled capability tiers:
 
 1. **Tier 1 (Universal Zero-Privilege Discovery):**
-   Runs unconditionally across all commercial, prosumer, and carrier hardware (Netgear, Asus, Linksys, TP-Link, Eero, Google Nest, pfSense, OPNsense, Ubiquiti UniFi, MikroTik, Cisco, OpenWrt, DD-WRT, and ISP gateways from Verizon, AT&T, Comcast Xfinity, Spectrum, and CenturyLink). It requires zero router authentication, zero credentials, and zero administrative privileges.
+   Runs unconditionally across all commercial, prosumer, and carrier hardware (Netgear, Asus, Linksys, TP-Link, Eero, Google Nest, pfSense, OPNsense, Ubiquiti UniFi, MikroTik, Cisco, OpenWrt, DD-WRT, and major fiber/cable ISP gateways). It requires zero router authentication, zero credentials, and zero administrative privileges.
 
 2. **Tier 2 (RF Intrusion Detection):**
    Functions on any network using standard Linux-supported 802.11 Monitor Mode wireless chipsets (MediaTek, Qualcomm Atheros, Intel). Automatically falls back to high-speed passive discovery on wired Ethernet.
@@ -211,10 +211,12 @@ ostium db-stats
 * [11. Carrier Gateway Defensive Integration](docs/11_OSTIUM_GUIDE_CARRIER_GATEWAY_DNS_AND_WIDS.md) — Carrier gateway defensive integration & high-availability dual-node sinkhole architecture.
 * [Changelog](CHANGELOG.md) — Detailed release history and feature records.
 
-
-
 ---
 
 ## 📄 License & Integrity
 
 Released under the Sovereign Open-Source License. Developed for resilient, autonomous home and edge network security.
+
+> [!NOTE]
+> **Legal Trademark & Open Source Attribution Notice:**  
+> All product names, logos, brands, and registered trademarks referenced in this project are property of their respective trademark holders. All company, product, and service names used in this software and documentation are for technical identification and interoperability reference only under U.S. Trademark Fair Use doctrine. Use of these names does not imply endorsement, affiliation, or sponsorship. Firmware references relate to standard open-source GPL-licensed Linux kernel stacks published by upstream hardware ODMs and carriers (e.g. [Verizon Open Source](https://github.com/verizon), [Arcadyan GPL](https://openwrt.org), and [OpenWrt](https://openwrt.org)).

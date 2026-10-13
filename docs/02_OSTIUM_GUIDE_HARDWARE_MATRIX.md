@@ -3,25 +3,29 @@
 > **Tested Hardware, Gateway Compatibility Registry & RF Interfaces**  
 > **Guiding Principle:** Decoupled Zero-Privilege Layer Architecture  
 
+> [!NOTE]
+> **Legal Trademark & Open Source Attribution Notice:**  
+> All product names, logos, brands, and registered trademarks mentioned in this document (including *Verizon®*, *Fios®*, *AT&T®*, *Spectrum®*, *Comcast Xfinity®*, *Asus®*, *Netgear®*, *Ubiquiti®*, *Intel®*, *Qualcomm®*) are property of their respective trademark holders. Their reference herein is strictly for technical interoperability, hardware architecture classification, and fair-use educational compatibility reference under U.S. Trademark Fair Use doctrine. Ostium is an independent, zero-cloud sovereign open system and is **not** affiliated with, endorsed by, or sponsored by any commercial telecommunications providers. Firmware references relate to standard open-source GPL-licensed Linux kernel stacks published by upstream hardware ODMs and carriers (e.g. [Verizon Open Source](https://github.com/verizon), [Arcadyan GPL](https://openwrt.org), and [OpenWrt](https://openwrt.org)).
+
 ---
 
 ## 🏷️ 1. Gateway Compatibility Registry (Tier 1 vs Tier 2 vs Tier 3)
 
-| Manufacturer / Carrier | Router Model | Hardware Platform | Layer-2 Discovery | WIDS Detection | Hardware Eject (ACL) |
+| Manufacturer / Platform | Router Model | Hardware Architecture | Layer-2 Discovery | WIDS Detection | Hardware Eject (ACL) |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Verizon Fios** | **CR1000B** | Qualcomm IPQ8072A (ARM64) | ✅ Full (Sub-ms DNS/ARP) | ✅ Full (802.11ax/6E) | ✅ Full (QSDK JSON-RPC) |
-| **Verizon Fios** | **CR1000A** | Arcadyan / Qualcomm IPQ8072A | ✅ Full (Sub-ms DNS/ARP) | ✅ Full (802.11ax/6E) | ✅ Full (QSDK JSON-RPC) |
-| **Verizon Fios** | **G3100** | Arcadyan / Qualcomm IPQ8074 | ✅ Full (Sub-ms DNS/ARP) | ✅ Full (802.11ax) | ✅ Full (QSDK JSON-RPC) |
-| **Verizon Fios** | **E3200 / CE1000A**| Arcadyan Wi-Fi 6 Extender | ✅ Full (Sub-ms DNS/ARP) | ✅ Full (802.11ax) | ✅ Full (QSDK JSON-RPC) |
-| **Verizon Fios** | **G1100** | Actiontec Broadcom BCM63168 | ✅ Full (Sub-ms DNS/ARP) | ✅ Full (802.11ac) | ⚠️ Legacy Web Auth |
-| **Spectrum / Charter** | **SAC2V1K** | Sagemcom IPQ4019 | ✅ Full (Sub-ms DNS/ARP) | ✅ Full (802.11ac) | ❌ Read-Only Discovery |
-| **AT&T** | **BGW-210 / BGW-320** | Humax / Nokia BCM4908 | ✅ Full (Sub-ms DNS/ARP) | ✅ Full (Wi-Fi 6) | ❌ Read-Only Discovery |
-| **Comcast Xfinity** | **XB7 / XB8** | Technicolor / CommScope | ✅ Full (Sub-ms DNS/ARP) | ✅ Full (Wi-Fi 6E) | ❌ Read-Only Discovery |
-| **Asus** | **RT-AX88U / RT-AX86U** | Broadcom BCM4908 / AsusWRT | ✅ Full (Sub-ms DNS/ARP) | ✅ Full (802.11ax) | 🛠️ Community Driver Planned |
-| **Netgear** | **Nighthawk RAX80/RAX120** | Broadcom / Qualcomm | ✅ Full (Sub-ms DNS/ARP) | ✅ Full (802.11ax) | 🛠️ Community Driver Planned |
-| **OpenWrt** | **Any router on 21.02+**| MIPS / ARM / x86_64 | ✅ Full (Sub-ms DNS/ARP) | ✅ Full (All bands) | 🛠️ `ubus` Driver In Progress |
-| **Ubiquiti** | **UniFi Dream Machine (UDM)**| Annapurna AL324 ARM64 | ✅ Full (Sub-ms DNS/ARP) | ✅ Full (UniFi APs) | 🛠️ Community Driver Planned |
-| **Generic / Unknown** | **Any Router / Hotspot** | Any Architecture | ✅ Full (Sub-ms DNS/ARP) | ✅ Full (With Wi-Fi NIC) | ⚠️ Layer-2 Passive Only |
+| **Fiber Carrier Gateway** | **CR1000B** (WNC) | Qualcomm IPQ8072A (ARM64) | ✅ Full (Sub-ms DNS/ARP) | ✅ Full (802.11ax/6E) | ✅ Full (QSDK JSON-RPC) |
+| **Fiber Carrier Gateway** | **CR1000A** (Arcadyan) | Qualcomm IPQ8072A (ARM64) | ✅ Full (Sub-ms DNS/ARP) | ✅ Full (802.11ax/6E) | ✅ Full (QSDK JSON-RPC) |
+| **Fiber Carrier Gateway** | **G3100** (Arcadyan) | Qualcomm IPQ8074 (ARM64) | ✅ Full (Sub-ms DNS/ARP) | ✅ Full (802.11ax) | ✅ Full (QSDK JSON-RPC) |
+| **Carrier Wi-Fi Extender**| **E3200 / CE1000A**| Arcadyan Wi-Fi 6 Extender | ✅ Full (Sub-ms DNS/ARP) | ✅ Full (802.11ax) | ✅ Full (QSDK JSON-RPC) |
+| **Carrier Legacy Router** | **G1100** (Actiontec)| Broadcom BCM63168 (MIPS) | ✅ Full (Sub-ms DNS/ARP) | ✅ Full (802.11ac) | ⚠️ Legacy Web Auth |
+| **Cable / DOCSIS Gateway**| **SAC2V1K** (Sagemcom)| Qualcomm IPQ4019 | ✅ Full (Sub-ms DNS/ARP) | ✅ Full (802.11ac) | ❌ Read-Only Discovery |
+| **Telco Fiber Gateway**   | **BGW-210 / BGW-320** | Broadcom BCM4908 | ✅ Full (Sub-ms DNS/ARP) | ✅ Full (Wi-Fi 6) | ❌ Read-Only Discovery |
+| **Cable Carrier Gateway** | **XB7 / XB8** (Technicolor)| CommScope / Broadcom | ✅ Full (Sub-ms DNS/ARP) | ✅ Full (Wi-Fi 6E) | ❌ Read-Only Discovery |
+| **Asus Prosumer**         | **RT-AX88U / RT-AX86U** | Broadcom BCM4908 / AsusWRT | ✅ Full (Sub-ms DNS/ARP) | ✅ Full (802.11ax) | 🛠️ Community Driver Planned |
+| **Netgear Prosumer**      | **Nighthawk RAX80/120** | Broadcom / Qualcomm | ✅ Full (Sub-ms DNS/ARP) | ✅ Full (802.11ax) | 🛠️ Community Driver Planned |
+| **OpenWrt Sovereign**     | **Any router on 21.02+**| MIPS / ARM / x86_64 | ✅ Full (Sub-ms DNS/ARP) | ✅ Full (All bands) | 🛠️ `ubus` Driver In Progress |
+| **Ubiquiti UniFi**        | **Dream Machine (UDM)** | Annapurna AL324 ARM64 | ✅ Full (Sub-ms DNS/ARP) | ✅ Full (UniFi APs) | 🛠️ Community Driver Planned |
+| **Generic / Unknown**     | **Any Router / Hotspot**| Any Architecture | ✅ Full (Sub-ms DNS/ARP) | ✅ Full (With Wi-Fi NIC) | ⚠️ Layer-2 Passive Only |
 
 ---
 
@@ -40,9 +44,9 @@ While LAN discovery and host identification run over any Ethernet or Wi-Fi adapt
 
 ---
 
-## 🛡️ 3. Carrier Gateway Operational Notes: Verizon Fios CR1000A / CR1000B
+## 🛡️ 3. Carrier Gateway Operational Notes: CR1000A / CR1000B Hardware Stack (Qualcomm IPQ8072A)
 
-When integrating Ostium alongside an upstream defensive DNS resolver behind Verizon CR1000 series gateways:
+When integrating Ostium alongside an upstream defensive DNS resolver behind Tier 1 fiber carrier gateways (such as Arcadyan/WNC CR1000A/B platforms):
 
 1. **DNS Server Menu Fallacy**: `Network Settings > DNS Server` is strictly an internal hostname resolution alias table (`/etc/hosts`). Setting entries here will not alter client DNS resolution or upstream forwarding.
 2. **WAN DNS Isolation**: `Network Settings > Network Connections > Broadband Connection (Ethernet) > Settings > IPv4 DNS` configures the upstream WAN resolver. Private RFC 1918 addresses configured here fail because WAN routing drops packets directed to local bridge interfaces. The router then silently falls back to Secondary DNS.

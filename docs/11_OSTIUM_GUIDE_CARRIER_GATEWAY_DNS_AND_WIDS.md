@@ -4,6 +4,10 @@
 > **Standard:** `SOVEREIGN-SANITIZE-01` Sanitized Reference Blueprint (All IPs, MACs, and identifiers are RFC 5737 / RFC 7042 dummy values)  
 > **Guiding Principle:** Decoupled Zero-Cloud Autonomous Defense  
 
+> [!NOTE]
+> **Legal Trademark & Open Source Attribution Notice:**  
+> All product names, logos, brands, and registered trademarks mentioned in this document are property of their respective trademark holders. All company, product, and service names used herein are strictly for technical interoperability, hardware architecture classification, and educational compatibility reference under U.S. Trademark Fair Use doctrine. Firmware references relate to standard open-source GPL-licensed Linux kernel stacks published by upstream hardware ODMs and carriers (e.g. [Verizon Open Source](https://github.com/verizon), [Arcadyan GPL](https://openwrt.org), and [OpenWrt](https://openwrt.org)).
+
 ---
 
 ## 🏛️ 1. Architectural Overview & Topology
@@ -67,7 +71,7 @@ flowchart TD
     
     ROUTER_CHECK -->|"YES<br/>(OpenWrt, pfSense, ASUS-Merlin, Ubiquiti)"| LOCAL_LAN["<b>Scenario A: Local LAN Deployment</b><br/>• Run defensive resolver locally on LAN (e.g. 10.0.0.160)<br/>• Configure router DHCP Option 6 to point to local LAN IP<br/>• Clients query local resolver directly inside LAN"]
     
-    ROUTER_CHECK -->|"NO<br/>(Carrier Gateways: Verizon, AT&T, Comcast, Spectrum)"| WAN_CHECK{"Are you configuring router WAN / Broadband DNS?"}
+    ROUTER_CHECK -->|"NO<br/>(Carrier Gateways: Tier 1 Fiber & Cable Gateways)"| WAN_CHECK{"Are you configuring router WAN / Broadband DNS?"}
     
     WAN_CHECK -->|"YES (Standard WAN DNS Setup)"| EXTERNAL_IP["<b>Scenario B: External Public IP Required</b><br/>• Carrier firmwares enforce strict WAN-to-LAN routing domain isolation<br/>• WAN interface drops packets directed to private RFC 1918 addresses<br/>• <b>Resolver must reside on a Publicly Reachable IP</b> (e.g. VPS or cloud node)"]
     
