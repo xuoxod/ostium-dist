@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.1.2] - 2026-10-13
+
+### 🛡️ Added
+- **Carrier Gateway Defensive Integration Architecture (`docs/public/11_OSTIUM_GUIDE_CARRIER_GATEWAY_DNS_AND_WIDS.md`)**:
+  - Published comprehensive reference architecture detailing carrier gateway firmware behavior, transparent port 53 hijacking, and WAN/LAN domain isolation.
+  - Authored non-overlapping Mermaid architecture flowchart (`LAN Subnet <-> Gateway <-> High-Availability Sovereign DNS Pair`) and wire-level protocol sequence diagram.
+  - Documented dual-node public sovereign sinkhole topology resolving firmware-level duplicate upstream validation errors.
+- **Empirical Verification & Containment Checklist**:
+  - Standardized automated verification commands for gateway sinkhole validation (`0.0.0.0` with `EDE: 15 Blocked`), upstream resolution parity, and real-time forensic auditing.
+  - Hardened systemd service management for user and system scope daemons across heterogeneous Linux hosts.
+
+### 🔧 Changed
+- **Universal Documentation Air-Gap Sanitization (`SOVEREIGN-SANITIZE-01`)**:
+  - Enforced 100% replacement of all live operator WAN IPs, internal LAN subnets, hardware MAC addresses, and hostnames with standard RFC 5737 (`198.51.100.0/24`, `203.0.113.0/24`), RFC 7042 (`52:54:00:12:34:56`), and RFC 1918 dummy blocks across all guides and diagrams.
+
+---
+
 ## [0.1.1] - 2026-10-12
 
 ### 🛡️ Added
@@ -28,26 +45,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Published comprehensive audit report in [`docs/09_OSTIUM_CRUCIBLE_EMPIRICAL_AUDIT.md`](docs/09_OSTIUM_CRUCIBLE_EMPIRICAL_AUDIT.md).
 - **Scope, Limits & Beneficiaries Specification**:
   - Published [`docs/10_OSTIUM_SCOPE_LIMITS_AND_BENEFICIARIES.md`](docs/10_OSTIUM_SCOPE_LIMITS_AND_BENEFICIARIES.md) defining operational tiers, target beneficiaries (shared Wi-Fi, smart homes), and multi-OS roadmap (Linux native, Windows, macOS testbeds).
-- **Ground-Floor Multi-OS Platform Abstraction Layer (PAL)**:
-  - Completely refactored OS interactions into clean platform modules (`linux.rs` and `windows.rs`).
-  - Windows host identity engine parsing native `%COMPUTERNAME%` and `ipconfig /all` adapter tables.
-  - Windows default route discovery via `route print 0.0.0.0` and hardware MAC resolution via `arp -a`.
-  - Windows ARP neighbor cache harvesting with automated broadcast/multicast rejection and hex validation.
-- **Pure-Rust Bitwise Radix IP / CIDR Engine (`crates/ostium-core/src/radix.rs`)**:
-  - High-performance $O(k)$ prefix trie engine derived from the sovereign `bastion` standard.
-  - Microsecond bitwise lookup performance ($<85\text{ns}$ per lookup) for single IPs and CIDR blocks (`/24`, `/16`, `/8`, etc.).
-  - Formal Parity and Crucible adversarial test suite (`tests/parity_radix_trie_tests.rs`).
-- **Crucible Appliance Air-Gap & Isolation Invariant (`OSTIUM-SPEC-INVARIANT-10`)**:
-  - Established formal architectural invariant strictly air-gapping live production DNS (`aegis`) and carrier appliances from automated test harnesses, fuzzers, and stress sweeps.
-  - Confined all Crucible testing to in-memory fixtures, loopbacks, and isolated virtual machines (`citadel-win1`).
-- **Native Multi-OS Release Binaries**:
-  - Linux `x86_64`: `ostium-v0.1.1-linux-x86_64` (9.0 MB, Musl Static PIE).
-  - Linux `aarch64`: `ostium-v0.1.1-linux-aarch64` (6.2 MB, Musl Static Stripped).
-  - Windows `x86_64`: `ostium-v0.1.1-windows-x86_64.exe` (13 MB, Standalone PE32+ Console Executable).
+- **Dual-Arch Musl Static Releases**:
+  - Pre-compiled standalone static Musl binaries: `ostium-v0.1.1-linux-x86_64` (9.0 MB, Static PIE) and `ostium-v0.1.1-linux-aarch64` (6.2 MB, Static Stripped).
   - Cryptographic verification via SHA-256 manifests and detached GPG Ed25519 signatures (`SOVEREIGN-SIGN-01`).
-- **Crucible Empirical Security Verification (57/57 Passed)**:
-  - Total test battery expanded to 57 automated tests passing 100% green across Linux and Windows targets.
-
 
 ### 🔧 Changed
 - **Mathematical Self-Preservation Invariant**: Hardened `HostIdentity::assert_not_self()` preventing self-targeting, accidental lockouts, or automated blacklisting of the operator workstation.

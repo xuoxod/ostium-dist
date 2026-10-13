@@ -190,6 +190,7 @@ ostium db-stats
 * [08. Router Diversity & Contribution Guide](docs/08_OSTIUM_GUIDE_ROUTER_DIVERSITY_AND_CONTRIBUTION.md) — Edge cases in heterogeneous networks and implementing custom gateway drivers.
 * [09. Crucible Empirical Security Audit](docs/09_OSTIUM_CRUCIBLE_EMPIRICAL_AUDIT.md) — Empirical verification proof across all 57 adversarial tests.
 * [10. Scope, Limits & Target Beneficiaries](docs/10_OSTIUM_SCOPE_LIMITS_AND_BENEFICIARIES.md) — Operational boundaries, target beneficiaries (shared Wi-Fi, smart homes), and multi-OS roadmap.
+* [11. Carrier Gateway Defensive Integration](docs/11_OSTIUM_GUIDE_CARRIER_GATEWAY_DNS_AND_WIDS.md) — Carrier gateway defensive integration & high-availability dual-node sinkhole architecture.
 * [Changelog](CHANGELOG.md) — Detailed release history and feature records.
 
 

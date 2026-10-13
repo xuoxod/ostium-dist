@@ -40,6 +40,19 @@ While LAN discovery and host identification run over any Ethernet or Wi-Fi adapt
 
 ---
 
+## 🛡️ 3. Carrier Gateway Operational Notes: Verizon Fios CR1000A / CR1000B
+
+When integrating sovereign security agents (Ostium and Aegis Defensive DNS) behind Verizon CR1000 series gateways:
+
+1. **DNS Server Menu Fallacy**: `Network Settings > DNS Server` is strictly an internal hostname resolution alias table (`/etc/hosts`). Setting entries here will not alter client DNS resolution or upstream forwarding.
+2. **WAN DNS Isolation**: `Network Settings > Network Connections > Broadband Connection (Ethernet) > Settings > IPv4 DNS` configures the upstream WAN resolver. Private RFC 1918 addresses configured here fail because WAN routing drops packets directed to local bridge interfaces. The router then silently falls back to Secondary DNS.
+3. **Local DHCP Customization**: The stock gateway firmware locks out custom DHCP Option 6. For whole-home zero-configuration interception, deploy an autonomous sovereign DHCP service on the Ostium node and set `Network Settings > IPv4 Address Distribution > Edit > DHCP Server: Disabled` on the gateway.
+4. **IPv6 Leak Elimination**: Dual-stack clients resolve via carrier IPv6 DNS in parallel. Toggle `Network Settings > IPv6 > 1. Enable IPv6 Support` to **Disabled** to eliminate parallel DNS leaks.
+
+---
+
 ## 📖 Related Documentation
 * [08_OSTIUM_GUIDE_ROUTER_DIVERSITY_AND_CONTRIBUTION.md](08_OSTIUM_GUIDE_ROUTER_DIVERSITY_AND_CONTRIBUTION.md) — Understanding heterogeneous router networks and writing custom drivers.
 * [01_OSTIUM_GUIDE_QUICKSTART.md](01_OSTIUM_GUIDE_QUICKSTART.md) — 5-minute setup and CLI walkthrough.
+* [11_OSTIUM_GUIDE_CARRIER_GATEWAY_DNS_AND_WIDS.md](11_OSTIUM_GUIDE_CARRIER_GATEWAY_DNS_AND_WIDS.md) — Carrier gateway defensive integration & high-availability dual-node sinkhole architecture.
+* [`ostium-carrier-rpc` Documentation](../../crates/ostium-carrier-rpc/README.md) — Gateway RPC driver architecture and carrier firmware integration.
