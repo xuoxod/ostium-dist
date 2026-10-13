@@ -49,6 +49,36 @@ flowchart TD
 
 ---
 
+## 🌐 1.1 The Crucial Architectural Invariant: External Public IP vs. Internal LAN IP
+
+A foundational discovery from real-world gateway engineering is the distinction between **Single-Machine Protection** and **Whole-Network Gateway Protection**:
+
+### Two Deployment Scopes:
+1. **Per-Machine Sentinel (Zero Router Configuration)**:
+   - When you download and run `ostium` on any local Linux, macOS, or Windows machine, it immediately protects that host.
+   - It asserts the **Self-Preservation Invariant** (self MACs/IPs permanently immune from ACL lockouts), audits active neighbor stations, harvests local DHCP hostnames, and alerts on rogue MACs and ARP spoofing.
+   - *No router modifications, external IPs, or network topology changes are needed.*
+2. **Whole-Network Gateway Protection (Every Device Defended)**:
+   - To protect all Smart TVs, IoT cameras, game consoles, and mobile phones simultaneously without configuring each client, upstream DNS must be intercepted at the gateway level.
+
+```mermaid
+flowchart TD
+    GOAL["Deployment Goal: Whole-Network Defense"] --> ROUTER_CHECK{"Does your router allow custom LAN DHCP DNS (Option 6)?"}
+    
+    ROUTER_CHECK -->|"YES<br/>(OpenWrt, pfSense, ASUS-Merlin, Ubiquiti)"| LOCAL_LAN["<b>Scenario A: Local LAN Deployment</b><br/>• Run defensive resolver locally on LAN (e.g. 10.0.0.160)<br/>• Configure router DHCP Option 6 to point to local LAN IP<br/>• Clients query local resolver directly inside LAN"]
+    
+    ROUTER_CHECK -->|"NO<br/>(Carrier Gateways: Verizon, AT&T, Comcast, Spectrum)"| WAN_CHECK{"Are you configuring router WAN / Broadband DNS?"}
+    
+    WAN_CHECK -->|"YES (Standard WAN DNS Setup)"| EXTERNAL_IP["<b>Scenario B: External Public IP Required</b><br/>• Carrier firmwares enforce strict WAN-to-LAN routing domain isolation<br/>• WAN interface drops packets directed to private RFC 1918 addresses<br/>• <b>Resolver must reside on a Publicly Reachable IP</b> (e.g. VPS or cloud node)"]
+    
+    WAN_CHECK -->|"ALTERNATIVE (All-Local)"| DISABLE_CARRIER["<b>Scenario C: Disable Carrier DHCP</b><br/>• Disable DHCP on carrier router<br/>• Run autonomous local DHCP on local Ostium node<br/>• Local LAN IP serves all DHCP leases and DNS"]
+```
+
+> [!NOTE] In-House Engine Context & Public Community Note
+> In our production deployment, we deploy **Aegis** as our high-availability dual-node sovereign resolver pair (`sovereign-dns-node-alpha` and `beta`). Because Aegis is currently an in-house private technology under active fleet testing, public operators deploying Ostium for whole-home defense can point their carrier gateway WAN DNS to any external defensive resolver or self-hosted VPS sinkhole of their choice following this identical architecture.
+
+---
+
 ## ⚡ 2. Empirical Verification & Protocol Sequence
 
 The following sequence diagram illustrates what occurs on the wire when client devices emit network queries:

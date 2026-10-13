@@ -84,11 +84,33 @@ sudo mv ostium /usr/local/bin/
 curl -sSL https://raw.githubusercontent.com/xuoxod/ostium-dist/main/bin/ostium-v0.1.2-macos-x86_64 -o ostium
 chmod +x ostium
 sudo mv ostium /usr/local/bin/
+
+# Optional: Clear Apple quarantine bit for curl-downloaded binaries
+xattr -d com.apple.quarantine /usr/local/bin/ostium 2>/dev/null || true
+
+# Verify binary integrity
+ostium --version
+# Output: ostium 0.1.2
 ```
 
 ---
 
-## 🛠️ 2. Real-World Walkthrough: What to Expect
+## 🏛️ 2. Deployment Scope: Single-Host vs. Whole-Network Protection
+
+Before running Ostium, choose the operational mode that best fits your environment:
+
+1. **Per-Machine Sentinel (Zero Router Configuration)**:
+   - Run `ostium` locally on your laptop, desktop, or workstation (Linux, macOS, or Windows).
+   - Protects that specific host against rogue station probing, deauth storms (with monitor-mode Wi-Fi), and ARP poisoning.
+   - Requires zero router access, zero network changes, and zero external IP addresses.
+2. **Whole-Network Gateway Protection (Every Household Device Defended)**:
+   - Deploys an Ostium sentinel node on your LAN alongside upstream defensive DNS forwarding at the router level.
+   - Automatically sanitizes Smart TVs, IoT cameras, game consoles, and phones without configuring each device.
+   - *Carrier Router Note:* If your ISP router isolates its WAN interface from the internal LAN bridge (like Verizon CR1000, AT&T BGW, or Xfinity XB7/8), upstream WAN DNS must query a **Publicly Reachable External IP** (e.g. VPS or cloud node), or you must disable carrier DHCP and host local DHCP on the Ostium node. See [Guide 11](11_OSTIUM_GUIDE_CARRIER_GATEWAY_DNS_AND_WIDS.md) for full details.
+
+---
+
+## 🛠️ 3. Real-World Walkthrough: What to Expect
 
 ### Step 1: Discover Your Host Identity & Gateway Profile
 Execute non-intrusive discovery to assert self-preservation protection and gateway hardware profiles:
@@ -97,23 +119,27 @@ Execute non-intrusive discovery to assert self-preservation protection and gatew
 ostium whoami
 ```
 
-**Expected Real-World Output:**
+**Expected Real-World Output (Linux / macOS / Windows):**
 ```text
 ================================================================================
   OSTIUM HOST IDENTITY & SELF-AWARENESS MATRIX
 ================================================================================
-  Hostname:          sentinel-node-01
-  Primary Interface: wlan0
+  Hostname:          sentinel-node-01 (or CITADEL-WIN1 / macbook-pro.local)
+  Primary Interface: wlan0 (or en0 / Ethernet)
   Primary MAC:       00:11:22:33:44:AA
   Primary LAN IP:    10.0.0.57
   Self Badge:        ★ THIS HOST (sentinel-node-01)
 --------------------------------------------------------------------------------
-  ACTIVE INTERFACES:
-    • lo           MAC: 00:00:00:00:00:00  Up: false Loopback: true
-    • eth0         MAC: 52:54:00:12:34:56  Up: true  Loopback: false
+  ACTIVE INTERFACES (2 TOTAL):
     • wlan0        MAC: 00:11:22:33:44:AA  Up: true  Loopback: false
+    • lo           MAC: 00:00:00:00:00:00  Up: true  Loopback: true
+--------------------------------------------------------------------------------
+  REGISTERED LOCAL IP ADDRESSES (3 TOTAL):
+    • fe80::211:22ff:fe33:44aa (★ THIS HOST)
+    • 10.0.0.57 (★ THIS HOST)
+    • 127.0.0.1 (★ THIS HOST)
 ================================================================================
-  Self-Preservation Invariant: ACTIVE (Host MACs & IPs protected from ACL drops)
+  Self-Preservation Guard: ACTIVE (Self MACs/IPs permanently immune from ban)
 ================================================================================
 ```
 

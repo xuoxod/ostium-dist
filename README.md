@@ -113,7 +113,17 @@ sudo mv ostium /usr/local/bin/
 curl -sSL https://raw.githubusercontent.com/xuoxod/ostium-dist/main/bin/ostium-v0.1.2-macos-aarch64 -o ostium
 chmod +x ostium
 sudo mv ostium /usr/local/bin/
+
+# Windows x86_64 (PowerShell)
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/xuoxod/ostium-dist/main/bin/ostium-v0.1.2-windows-x86_64.exe" -OutFile "ostium.exe"
+.\ostium.exe whoami
 ```
+
+### 🏛️ Operational Scope: Single-Host vs. Whole-Network Gateway Protection
+- **Single-Host Sentinel (Works Anywhere)**: Run `ostium` on any local laptop, desktop, or server. It immediately asserts host self-preservation, inventories active subnet neighbors, and alerts on rogue MACs without touching your router.
+- **Whole-Network Gateway Protection**: Protects all Smart TVs, IoT cameras, and household devices by pointing router DNS to a defensive resolver.
+  * *Prosumer / OpenWrt Routers:* If your router supports custom LAN DHCP Option 6, you can point directly to a local LAN IP.
+  * *Carrier Gateways (Verizon, AT&T, Comcast, Spectrum):* Because carrier firmwares isolate the WAN routing domain from the internal LAN, router WAN DNS must point to a **Publicly Reachable External IP** (e.g. VPS or cloud node), or you must disable carrier DHCP and host local DHCP. See [Guide 11](docs/11_OSTIUM_GUIDE_CARRIER_GATEWAY_DNS_AND_WIDS.md) for full architectural blueprints.
 
 ### Cryptographic Verification (`SOVEREIGN-SIGN-01`)
 Every release binary is accompanied by deterministic SHA-256 digests and OpenPGP detached signatures signed with the sovereign release key (`Rick Walker <rick@rmediatech.com>`, Key ID: `4E428019A109578B`):

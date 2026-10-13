@@ -51,6 +51,19 @@ When integrating sovereign security agents (Ostium and Aegis Defensive DNS) behi
 
 ---
 
+## 💻 4. Host Operating System Platform Matrix
+
+| Host OS Tier | Supported Architectures | Kernel Interfaces | Zero-Privilege Scout | WIDS RF Monitor Mode | Hardware ACL Eject |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Linux (Tier 1)** | `x86_64`, `aarch64` (Musl static) | `/proc/net/arp`, Netlink, `mac80211` | ✅ Full (<85ns match) | ✅ Full (Native Monitor Mode) | ✅ Full (QSDK JSON-RPC) |
+| **macOS (Tier 2)** | Apple Silicon (`aarch64` M1-M4), Intel (`x86_64`) | `sysctl`, `getifaddrs`, CoreWLAN | ✅ Full (Sub-ms DNS/ARP) | ⚠️ Passive Airwaves | 🛠️ In Progress |
+| **Windows (Tier 2)**| `x86_64` (Win 10/11 / Server) | Win32 `GetAdaptersAddresses`, `GetIpNetTable2` | ✅ Full (Sub-ms DNS/ARP) | ⚠️ Scout Fallback | 🛠️ In Progress |
+
+> [!TIP] Multi-OS Operational Invariant
+> Regardless of the host OS, Ostium guarantees the **Host Self-Preservation Invariant**: the local machine's physical MAC addresses and assigned IPs are permanently whitelisted and mathematically immune to administrative drops or ACL blacklisting.
+
+---
+
 ## 📖 Related Documentation
 * [08_OSTIUM_GUIDE_ROUTER_DIVERSITY_AND_CONTRIBUTION.md](08_OSTIUM_GUIDE_ROUTER_DIVERSITY_AND_CONTRIBUTION.md) — Understanding heterogeneous router networks and writing custom drivers.
 * [01_OSTIUM_GUIDE_QUICKSTART.md](01_OSTIUM_GUIDE_QUICKSTART.md) — 5-minute setup and CLI walkthrough.
