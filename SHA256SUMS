@@ -1,9 +1,12 @@
+8f9af7f171e39261cfed30fd5a08f621ef00e5b16f9da13a31acb8a4822f6581  bin/ostium-v0.1.0-linux-x86_64
+8a24b5a53324002b38abd4b1127e2b26e23b1c17226e46223ef7a700b327f630  bin/ostium-v0.1.0-linux-x86_64.sha256
+458fe74ecd1898cf7588c7631c4ffbc3723c856f893dede0f35df8fecd07b78d  bin/ostium-v0.1.0-linux-x86_64.sha256.asc
 d6899401e6ac168d12198faf3cd77e62ee260ea276b9e6d3e66ebad64f402394  bin/ostium-v0.1.1-linux-aarch64
 72ef6fd40dbe39d3bd0e80543b6241bf0e4d6f64dab7eeb3fd9b63dd08417771  bin/ostium-v0.1.1-linux-aarch64.sha256
 d34105d364f4a2f7f6b8fa5942c0de61f4428af7c7f7e60e6ba2597984240d6e  bin/ostium-v0.1.1-linux-aarch64.sha256.asc
-962351d6040be8e339530ebfb69b76e4512be854bfc03e4290cd33513ba45c9c  bin/ostium-v0.1.1-linux-x86_64
-19efa129fa8cebfda49beb6deb3f5432a2b11b303d4b2711e518690e8dae2e30  bin/ostium-v0.1.1-linux-x86_64.sha256
-a65e0859c428b92e7c253c1ca96ea5ed1ae9b5f48a9f4ab611d259d7db5f466f  bin/ostium-v0.1.1-linux-x86_64.sha256.asc
+e0d29738d860ecd580a4225231e64fe64b11815cf93e0b36dec3f68561a83054  bin/ostium-v0.1.1-linux-x86_64
+ceb1bffd53d470e07a1941515f8bd0f517ea08137c5d519c94d69c6f9052bef3  bin/ostium-v0.1.1-linux-x86_64.sha256
+c308931d37e76c6938db8f03e009161cb9ce3c08a19956e7b283e2443359290a  bin/ostium-v0.1.1-linux-x86_64.sha256.asc
 987c5daec0f533ad40b8338bdd3a4d75b9a24afbe22f7e8b026796183730bcbd  bin/ostium-v0.1.1-windows-x86_64.exe
 f090745cff4d2809ab562efb2e1acda1da75a37eddcdc9fafc0b01cd5519adf7  bin/ostium-v0.1.1-windows-x86_64.exe.sha256
 d0fab2dcc61ed1962373e5336cd718c10d054b98da98b32e09d6ac636270bed5  bin/ostium-v0.1.1-windows-x86_64.exe.sha256.asc
