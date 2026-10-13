@@ -119,11 +119,11 @@ Invoke-WebRequest -Uri "https://raw.githubusercontent.com/xuoxod/ostium-dist/mai
 .\ostium.exe whoami
 ```
 
-### 🏛️ Operational Scope: Single-Host vs. Whole-Network Gateway Protection
-- **Single-Host Sentinel (Works Anywhere)**: Run `ostium` on any local laptop, desktop, or server. It immediately asserts host self-preservation, inventories active subnet neighbors, and alerts on rogue MACs without touching your router.
-- **Whole-Network Gateway Protection**: Protects all Smart TVs, IoT cameras, and household devices by pointing router DNS to a defensive resolver.
-  * *Prosumer / OpenWrt Routers:* If your router supports custom LAN DHCP Option 6, you can point directly to a local LAN IP.
-  * *Carrier Gateways (Verizon, AT&T, Comcast, Spectrum):* Because carrier firmwares isolate the WAN routing domain from the internal LAN, router WAN DNS must point to a **Publicly Reachable External IP** (e.g. VPS or cloud node), or you must disable carrier DHCP and host local DHCP. See [Guide 11](docs/11_OSTIUM_GUIDE_CARRIER_GATEWAY_DNS_AND_WIDS.md) for full architectural blueprints.
+### 🏛️ Operational Scope: What Ostium Protects
+- **100% Local LAN & Airwave Sentinel**: `ostium` is an autonomous Layer 2 / Layer 3 Wireless Intrusion Detection System (WIDS) and station inventory platform. It runs **entirely locally** on your machine or a dedicated sentinel device (Raspberry Pi, mini PC, or Linux/macOS/Windows host) inside your home network. It does **not** require any public ports or external cloud dependencies.
+- **Per-Device Host Protection**: Running `ostium` on your computer immediately gives that machine host self-preservation (permanent immunity against ACL lockouts), passive ARP table inspection, and detection of rogue MAC addresses on your local subnet.
+- **Dedicated 24/7 Subnet & Airwave Sentinel**: Running `ostium service install --user` on a dedicated machine on your network continuously audits 802.11 RF management frames (deauth bursts), checks 802.11w PMF compliance, tracks active stations in local SQLite WAL, and dispatches hardware ACL ejections to compatible gateway hardware.
+- **Complementary Upstream DNS Filtering Note**: Ostium defends your physical airwaves and local network layer. For whole-network Layer 7 DNS filtering (blocking ad/telemetry domains across smart TVs and phones), Ostium operates seamlessly alongside any upstream defensive DNS sinkhole of your choice. See [Guide 11](docs/11_OSTIUM_GUIDE_CARRIER_GATEWAY_DNS_AND_WIDS.md) for how carrier routers route upstream traffic.
 
 ### Cryptographic Verification (`SOVEREIGN-SIGN-01`)
 Every release binary is accompanied by deterministic SHA-256 digests and OpenPGP detached signatures signed with the sovereign release key (`Rick Walker <rick@rmediatech.com>`, Key ID: `4E428019A109578B`):

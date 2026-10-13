@@ -14,9 +14,9 @@ In modern consumer and small-business deployments, ISP-provided carrier gateways
 3. Locked DHCP menus omitting user-configurable DHCP Option 6 (Domain Name Server).
 4. Dual-stack parallel IPv6 DNS leaks (RFC 8305 "Happy Eyeballs").
 
-To establish 100% whole-network sanitization and intrusion defense without replacing carrier optical equipment, Ostium and Aegis deploy a **Coordinated Dual-Tier Defensive Architecture**:
-* **Layer 1 (Physical Airwaves & L2 Sentinel)**: A dedicated local host (`sovereign-sentinel-01`) runs Ostium 24/7, monitoring local 802.11 RF frames for deauth floods, rogue BSSIDs, evil twins, and ARP spoofing.
-* **Layer 2 (Network-Wide Defensive DNS)**: The gateway router's WAN DNS is pointed to a High-Availability Sovereign DNS Pair (`sovereign-dns-node-alpha` and `sovereign-dns-node-beta`) running Aegis on public endpoints, sanitizing all upstream queries across every phone, TV, tablet, and PC automatically.
+To establish 100% whole-network sanitization and intrusion defense without replacing carrier optical equipment, Ostium and an Upstream Defensive DNS Sinkhole deploy a **Coordinated Dual-Tier Defensive Architecture**:
+* **Layer 1: Ostium Local WIDS Sentinel**: Runs entirely inside your home network on a local node (`10.0.0.160`), monitoring local 802.11 RF frames for deauth floods, rogue BSSIDs, evil twins, and subnet ARP spoofing.
+* **Layer 2: Upstream Defensive DNS Sinkhole**: The gateway router's WAN DNS is pointed to a High-Availability Upstream Resolver Pair (`198.51.100.89` and `203.0.113.159`), sanitizing all internet domain queries across every phone, TV, tablet, and PC automatically.
 
 ```mermaid
 flowchart TD
@@ -24,16 +24,16 @@ flowchart TD
         TV["Smart TVs & IoT (10.0.0.101)"]
         WORK["Workstations & Phones (10.0.0.57)"]
         SENTINEL["Ostium Sentinel Node (10.0.0.160)<br/>- 802.11 WIDS Monitor<br/>- Rogue Station Ejector<br/>- ARP Spoof Guard"]
-        GATEWAY["Carrier Gateway Router (10.0.0.1)<br/>- DHCP Active (IPv4 Only)<br/>- IPv6 Support: Disabled<br/>- WAN DNS: Pointed to Sovereign Nodes"]
+        GATEWAY["Carrier Gateway Router (10.0.0.1)<br/>- DHCP Active (IPv4 Only)<br/>- IPv6 Support: Disabled<br/>- WAN DNS: Pointed to Sovereign Upstream Nodes"]
     end
 
     subgraph WAN_ROUTING["Public Fiber WAN Transit"]
         CARRIER["Carrier Fiber Gateway (198.51.100.1)"]
     end
 
-    subgraph CLOUD_NODES["Sovereign High-Availability DNS Pair"]
-        NODE1["Primary Node Alpha (198.51.100.89)<br/>- Aegis Defensive Sinkhole<br/>- Radix Response Rate Limiting (RRL)<br/>- Sub-Millisecond Synthesis (0.0.0.0)"]
-        NODE2["Secondary Node Beta (203.0.113.159)<br/>- Aegis Hot-Standby Failover<br/>- Dual-Node Redundancy"]
+    subgraph CLOUD_NODES["High-Availability Upstream Defensive DNS Pair"]
+        NODE1["Primary Node Alpha (198.51.100.89)<br/>- Defensive DNS Sinkhole<br/>- Radix Response Rate Limiting (RRL)<br/>- Sub-Millisecond Synthesis (0.0.0.0)"]
+        NODE2["Secondary Node Beta (203.0.113.159)<br/>- Hot-Standby Failover<br/>- Dual-Node Redundancy"]
     end
 
     TV -->|"DNS Query: port 53"| GATEWAY
@@ -74,8 +74,9 @@ flowchart TD
     WAN_CHECK -->|"ALTERNATIVE (All-Local)"| DISABLE_CARRIER["<b>Scenario C: Disable Carrier DHCP</b><br/>• Disable DHCP on carrier router<br/>• Run autonomous local DHCP on local Ostium node<br/>• Local LAN IP serves all DHCP leases and DNS"]
 ```
 
-> [!NOTE] In-House Engine Context & Public Community Note
-> In our production deployment, we deploy **Aegis** as our high-availability dual-node sovereign resolver pair (`sovereign-dns-node-alpha` and `beta`). Because Aegis is currently an in-house private technology under active fleet testing, public operators deploying Ostium for whole-home defense can point their carrier gateway WAN DNS to any external defensive resolver or self-hosted VPS sinkhole of their choice following this identical architecture.
+> [!NOTE] In-House Technology Context & Public Deployment Note
+> **Ostium itself is an autonomous local-first WIDS and L2/L3 sentinel — it runs 100% locally on your home network and never requires an external IP.**
+> In our internal fleet, we separately operate **Aegis** as an in-house high-availability dual-node sovereign DNS resolver pair. Because Aegis is currently private under fleet testing, public users deploying Ostium for physical and local network defense can point their carrier gateway WAN DNS to any external defensive resolver or self-hosted VPS DNS sinkhole of their choice using this exact topology.
 
 ---
 
@@ -88,7 +89,7 @@ sequenceDiagram
     autonumber
     actor TV as Smart TV / IoT Device
     participant GW as Carrier Gateway (10.0.0.1)
-    participant DNS1 as Primary Aegis (198.51.100.89)
+    participant DNS1 as Primary Upstream DNS (198.51.100.89)
     participant UP as Upstream Clean DNS
     participant WIDS as Ostium Sentinel (10.0.0.160)
 
@@ -175,15 +176,15 @@ $ dig @10.0.0.1 example.com +short
 ```
 *Note: Legitimate internet queries resolve in sub-millisecond time with zero operational degradation.*
 
-### Proof C: Autonomous Forensic Journal on Public Aegis Nodes
+### Proof C: Autonomous Forensic Journal on Public Defensive DNS Resolver Nodes
 ```json
 {"timestamp_iso":"2026-10-13T15:52:59Z","client_ip":"198.51.100.21","client_port":42181,"qname":"ads.telemetry-host.com.","qtype":"A","transport":"UDP","action":"SINKHOLE_INTERCEPT","reason":"ThreatAction::ZeroIp","rcode":"InterceptionSynthesized","latency_micros":74}
 {"timestamp_iso":"2026-10-13T15:52:59Z","client_ip":"198.51.100.21","client_port":60562,"qname":"tracking.smart-display.net.","qtype":"A","transport":"UDP","action":"SINKHOLE_INTERCEPT","reason":"ThreatAction::ZeroIp","rcode":"InterceptionSynthesized","latency_micros":28}
 ```
 *Note: Queries emitted by household devices are intercepted at the carrier gateway, forwarded to Sovereign Node Alpha, and synthesized into zero-IP blocks in $28\,\mu\text{s}$.*
 
-### Proof D: Cloud Edge Node Fleet Defenses Uncompromised
-Adding Aegis to Sovereign Node Alpha and Node Beta leaves all existing perimeter defenses intact:
+### Proof D: Cloud Edge Node Defenses Uncompromised
+Adding defensive DNS to public nodes leaves all existing perimeter defenses intact:
 ```bash
 $ sudo ufw status
 Status: active
@@ -194,7 +195,7 @@ To                         Action      From
 80/tcp                     ALLOW       Anywhere     # HTTP Redirect
 3478/udp, 5349/tcp         ALLOW       Anywhere     # Sovereign Real-Time Media (STUN/TURN)
 30778                      ALLOW       198.51.100.21 # Encrypted SSH Operator Ingress
-53/udp, 53/tcp             ALLOW       Anywhere     # Aegis Defensive DNS & Sinkhole
+53/udp, 53/tcp             ALLOW       Anywhere     # Defensive DNS & Sinkhole
 3389/tcp, 23/tcp           DENY        Anywhere     # RDP / Telnet Perimeter Drop
 ```
 ```bash

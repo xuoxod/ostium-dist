@@ -95,18 +95,21 @@ ostium --version
 
 ---
 
-## 🏛️ 2. Deployment Scope: Single-Host vs. Whole-Network Protection
+## 🏛️ 2. Operational Scope: What Ostium Protects
 
-Before running Ostium, choose the operational mode that best fits your environment:
+Before deploying Ostium, note its focus as an autonomous local-first security tool:
 
-1. **Per-Machine Sentinel (Zero Router Configuration)**:
-   - Run `ostium` locally on your laptop, desktop, or workstation (Linux, macOS, or Windows).
-   - Protects that specific host against rogue station probing, deauth storms (with monitor-mode Wi-Fi), and ARP poisoning.
-   - Requires zero router access, zero network changes, and zero external IP addresses.
-2. **Whole-Network Gateway Protection (Every Household Device Defended)**:
-   - Deploys an Ostium sentinel node on your LAN alongside upstream defensive DNS forwarding at the router level.
-   - Automatically sanitizes Smart TVs, IoT cameras, game consoles, and phones without configuring each device.
-   - *Carrier Router Note:* If your ISP router isolates its WAN interface from the internal LAN bridge (like Verizon CR1000, AT&T BGW, or Xfinity XB7/8), upstream WAN DNS must query a **Publicly Reachable External IP** (e.g. VPS or cloud node), or you must disable carrier DHCP and host local DHCP on the Ostium node. See [Guide 11](11_OSTIUM_GUIDE_CARRIER_GATEWAY_DNS_AND_WIDS.md) for full details.
+1. **Local Host Protection (Out of the Box)**:
+   - Run `ostium` on any local laptop, desktop, or workstation (Linux, macOS, or Windows).
+   - Instantly asserts host self-preservation, inventories active subnet neighbors, and alerts on local ARP spoofing or rogue stations.
+   - *Zero router configuration, zero network modifications, and zero external IP addresses required.*
+2. **Dedicated 24/7 LAN & Airwave Sentinel**:
+   - Run `ostium service install --user` on a dedicated local node (e.g. Raspberry Pi, mini PC, or home server).
+   - Continuously audits local 802.11 RF management frames for deauthentication bursts, monitors 802.11w PMF adoption, and maintains a local SQLite WAL incident ledger (`~/.config/ostium/ostium.db`).
+   - If paired with compatible carrier gateway hardware (Qualcomm IPQ8072A / QSDK), dispatches hardware ACL disassociations to eject unauthorized stations.
+3. **Layer 7 DNS Interception (Optional Complementary Layer)**:
+   - Ostium protects Layer 2 (physical airwaves) and Layer 3 (subnet stations). It is **not** a DNS resolver.
+   - If you also wish to sanitize upstream domain queries across all smart TVs and mobile devices on your network, see [Guide 11](11_OSTIUM_GUIDE_CARRIER_GATEWAY_DNS_AND_WIDS.md) for how carrier routers handle upstream DNS and how to deploy a defensive DNS sinkhole alongside Ostium.
 
 ---
 

@@ -42,7 +42,7 @@ While LAN discovery and host identification run over any Ethernet or Wi-Fi adapt
 
 ## 🛡️ 3. Carrier Gateway Operational Notes: Verizon Fios CR1000A / CR1000B
 
-When integrating sovereign security agents (Ostium and Aegis Defensive DNS) behind Verizon CR1000 series gateways:
+When integrating Ostium alongside an upstream defensive DNS resolver behind Verizon CR1000 series gateways:
 
 1. **DNS Server Menu Fallacy**: `Network Settings > DNS Server` is strictly an internal hostname resolution alias table (`/etc/hosts`). Setting entries here will not alter client DNS resolution or upstream forwarding.
 2. **WAN DNS Isolation**: `Network Settings > Network Connections > Broadband Connection (Ethernet) > Settings > IPv4 DNS` configures the upstream WAN resolver. Private RFC 1918 addresses configured here fail because WAN routing drops packets directed to local bridge interfaces. The router then silently falls back to Secondary DNS.
